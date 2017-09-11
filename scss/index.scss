@@ -7,27 +7,86 @@ body{
 html,body{
   height: 100%;
   font-size: 0.14rem;
+  background: #f7f7f7;
 }
 
-.act-container{
-  padding: 16px;
+a{
+  text-decoration: none;
+  color:#000;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+.tab_head{
+  display:flex;
+  justify-content: space-around;
+  background:#fff;
+  font-size: 0.14rem;
+  color: #2c2c2f;
+  padding:0.18rem 0 0.14rem;
+  border-bottom:1px solid #e1e1e1;
+  .my_active{
+  }
+  a{
+    text-decoration: none;
+    color:#000;
+  }
 }
 
 .activity-list{
-  .cover{
-    width: 100%;
-  }
-  .header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.16rem;
-    .title{
-      max-width: 2.6rem;
-      color: #404040;
+  .single{
+    background:#ffffff;
+    padding:0.12rem 0.16rem ;
+    margin-bottom:0.16rem;
+    .cover{
+      width: 100%;
+      margin-top:0.16rem;
     }
-    .price{
-      color: #323232;
+    .header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.16rem;
+      margin-top:0.16rem;
+      .title{
+        max-width: 2.6rem;
+        color: #404040;
+        font-weight: 800;
+        text-align: left;
+        font-size: 0.16rem;
+      }
+      .price_1{
+        color: #323232;
+      }
+      .price_2{
+        color: #ff5a60;
+      }
+    }
+    .time{
+      display:flex;
+      justify-content:left;
+      font-size: 0.12rem;
+      color: #999999;
+      margin-top:0.12rem;
+    }
+    .location{
+      display:flex;
+      justify-content:space-between;
+      font-size: 0.12rem;
+      color: #999999;
+      margin-top:0.13rem;
     }
   }
+
 }
+.click_style{
+  border-bottom:2px solid #2c2c2f;
+  color:#000;
+}
+
+.activities_my{
+  display: none;
+}
+
+
+

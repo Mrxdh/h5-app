@@ -1,16 +1,17 @@
 var invite_code= getUrlParam('act_id')
 var origin_request = document.location.origin
-var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities'
+var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities/'
 var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0'
 var data_wangxuan
 
 $(function () {
     var info = $('.info')
+    var activities_detail = $('.activities_detail')
     submitAjax(activitiesUrl)
     function submitAjax(url, params){
     $.ajax({
         type: 'get',
-        url: url + '/' +invite_code,
+        url: url + invite_code,
         data : params || {},
         ContentType: 'application/json',
         dataType: 'json',
@@ -26,8 +27,8 @@ $(function () {
             )
         },
         success: function(data){
-            var str = '<div>' + '<h1>' + data.title + '</h1>' + '<div>' + data.details + '</div></div>'
-            info.append(str)
+            var activitiesListTemplate = Handlebars.compile($("#activities_detail").html())
+            activities_detail.html(activitiesListTemplate(data))
         },
         error: function(xhr){
 

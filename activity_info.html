@@ -2,14 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0;" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0" name="viewport" />
     <title>活动详情</title>
+    <link rel="stylesheet" href="./styles/info.css">
     <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
+    <script src="lib/handlebars-1.0.0.beta.6.js"></script>
+    <script src="js/helper.js"></script>
     <script src="./js/info.js"></script>
 </head>
 <body>
-    <div class="info">
+    <div class="header">
+        <img src="" alt="" class="head_img">
+        <div class="head_icon">
+            <img src="" alt="img">
+            <img src="" alt="img">
+        </div>
+
     </div>
-    <button class="btn" id="info">Register</button>
+    <div class="act-container">
+        <div class="activities_detail">
+
+        </div>
+    </div>
+
+<!--活动模板-->
+    <script id="activities_detail" type="text/x-handlebars-template">
+        <div class="title">
+            <span class="title_content">{{ title }}</span>
+            {{#compare min_price 0}}
+            <span class="price">免费</span>
+            {{else}}
+            <span class="price">¥{{ min_price }}</span>
+            {{/compare}}
+        </div>
+        <div class="state">
+            <span class="status">{{status}}</span>
+            <span class="status_tag">{{status_tag}}</span>
+        </div>
+        <div class="act_detail">
+            <div>活动时间：{{substring start_at 5 7}}月{{substring start_at 8 10}}日 — {{substring end_at 5 7}}月{{substring end_at 8 10}}日</div>
+            <div>全部名额：{{people_num}}</div>
+            <div>联系人：{{contacts_name}}</div>
+            <div>活动地址：{{location.name}}</div>
+            <div>报名人数：{{guests_num}}</div>
+        </div>
+        <div class="act_tab">
+            <div class="tab_title">
+                <span>活动详情</span>
+                <span>玩家评价</span>
+            </div>
+            <div class="tab_detail">
+                <div class="description">{{details}}</div>
+                <div><img src="" alt=""></div>
+                <div class="relative_act">
+                    <div class="relative_act_title">相似活动</div>
+                    <div class="relative_act_img">
+                        <ul>
+                            {{#each orders.several_photos}}
+                            <li>
+                                <img src='{{this}}' alt="">
+                                <div></div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab_comment"></div>
+
+        </div>
+    </script>
+    <div class="button">免费报名</div>
+    <!--定义根font-size-->
+    <script type="text/javascript">
+        var clientWidth = document.documentElement.clientWidth
+        document.documentElement.style.fontSize = clientWidth/3.75 + "px";
+        window.onresize = function(){
+            clientWidth = document.documentElement.clientWidth
+            document.documentElement.style.fontSize = clientWidth/3.75 + "px";
+        }
+    </script>
 </body>
 </html>

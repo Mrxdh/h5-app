@@ -7,3 +7,7 @@ Handlebars.registerHelper("compare",function(v1,v2,options){
         return options.inverse(this);
     }
 });
+Handlebars.registerHelper("substring",function(string,index1,index2){
+    string = string + '';
+    return string.substring(index1,index2)
+});

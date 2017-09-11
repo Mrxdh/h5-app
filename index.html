@@ -11,8 +11,16 @@
     <script src="./js/index.js"></script>
 </head>
 <body>
+    <div class="tab_head">
+        <a><span class="all_active">所有活动</span></a>
+        <a><span class="my_active">我的活动</span></a>
+    </div>
+
     <div class="act-container">
         <div class="activities_list">
+
+        </div>
+        <div class="activities_my">
 
         </div>
     </div>
@@ -21,15 +29,32 @@
     <script id="activities_list" type="text/x-handlebars-template">
         {{#each this}}
             <a href='activity_info.html?act_id={{id}}' class="activity-list">
-                <img src='{{ cover }}' alt="img" class="cover">
-                <div class="header">
-                    <span class="title">{{ title }}</span>
-                    {{#compare min_price 0}}
-                        <span class="price">免费</span>
-                    {{else}}
-                        <span class="price">¥{{ min_price }}</span>
-                    {{/compare}}
+                <div class="single">
+                    <img src='{{ cover }}' alt="img" class="cover">
+                    <div class="header">
+                        <span class="title">{{ title }}</span>
+                        {{#compare min_price 0}}
+                        <span class="price_1">免费</span>
+                        {{else}}
+                        <span class="price_2">¥{{ min_price }}</span>
+                        {{/compare}}
+                    </div>
+                    <div class="time">
+                        <img src='' alt='img' class="t_icon">
+                        <span class="d_time">
+                        {{substring start_at 5 7}}月{{substring start_at 8 10}}日 —
+                        {{substring end_at 5 7}}月{{substring end_at 8 10}}日
+                    </span>
+                    </div>
+                    <div class="location">
+                        <div>
+                            <img src="" alt="img">
+                            <span>{{ location.name }}</span>
+                        </div>
+                        <div>剩余名额{{ tickets_num }}</div>
+                    </div>
                 </div>
+
             </a>
         {{/each}}
     </script>

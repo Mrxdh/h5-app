@@ -1,12 +1,47 @@
 var invite_code= getUrlParam('invite_code')
 var origin_request = document.location.origin
 var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities'
-var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0'
+var myActivityUrl = 'https://devapi.kuban.io/api/v1/activities/my_activities'
+var tokens = ['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0',
+             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc5NjYsInZlcnNpb24iOjEsImV4cCI6MTUwNzY5NDcxNywiaWF0IjoxNTA1MTAyNzE3LCJlbnRlcnByaXNlX2lkIjpudWxsfQ.p5TAd9lv6j2xCT-CTUkUpGatk3IIK1nr5-eY82gjOw4']
 
 $(function () {
     var activities_list = $('.activities_list')
-    submitAjax(activitiesUrl)
-    function submitAjax(url, params){
+    var activities_my = $('.activities_my')
+    var allActive = $(".all_active");
+    var myActive = $(".my_active");
+
+    submitAjax(activitiesUrl, {
+        per_page : 100
+    }, 'list')
+
+    submitAjax(myActivityUrl, {
+        per_page : 100
+    }, 'my')
+
+    allActive.on('click',function(){
+        changeStyle('my')
+    });
+    myActive.on('click',function(){
+        changeStyle('all')
+    });
+
+    function changeStyle(type){
+        if(type == 'my'){
+            activities_my.hide()
+            activities_list.show()
+            allActive.addClass('click_style')
+            myActive.removeClass('click_style')
+        }else{
+            activities_list.hide()
+            activities_my.show()
+            myActive.addClass('click_style')
+            allActive.removeClass('click_style')
+        }
+    }
+
+    function submitAjax(url, params, type){
+        var token = type=='list'? tokens[0]:tokens[1];
         $.ajax({
             type: 'get',
             url: url,
@@ -25,14 +60,30 @@ $(function () {
                 )
             },
             success: function(data){
-                var activitiesListTemplate = Handlebars.compile($("#activities_list").html())
-                activities_list.html(activitiesListTemplate(data))
+                getData(data, type)
             },
             error: function(xhr){
             }
         })
     }
-})
+    function getData(data, type) {
+        var activitiesListTemplate = Handlebars.compile($("#activities_list").html())
+        if(type == 'list'){
+            activities_list.html(activitiesListTemplate(data))
+        }else{
+            for(var i in data){
+                data[i].title = data[i].activity.title;
+                data[i].cover = data[i].activity.cover;
+                data[i].min_price = data[i].total_amount;
+                data[i].start_at = data[i].activity.start_at;
+                data[i].end_at = data[i].activity.end_at;
+                data[i].location = {};
+                data[i].location.name = data[i].activity.location_name;
+            }
+            activities_my.html(activitiesListTemplate(data))
+        }
+    }
+});
 
 function connectWebViewJavascriptBridge(callback) {
     if (window.WebViewJavascriptBridge) {
@@ -47,6 +98,7 @@ function connectWebViewJavascriptBridge(callback) {
         );
     }
 }
+
 
 function login(id) {
 
