@@ -23,9 +23,16 @@ a{
   background:#fff;
   font-size: 0.14rem;
   color: #2c2c2f;
-  padding:0.18rem 0 0.14rem;
+  padding:0.18rem 0 0;
   border-bottom:1px solid #e1e1e1;
-  .my_active{
+  .click_style{
+    border-bottom:2px solid #2c2c2f;
+    color:#000;
+  }
+
+  span{
+    display:inline-block;
+    padding-bottom:0.14rem;
   }
   a{
     text-decoration: none;
@@ -79,9 +86,11 @@ a{
   }
 
 }
-.click_style{
-  border-bottom:2px solid #2c2c2f;
-  color:#000;
+.my_active{
+  color:#b3b3b3;
+}
+.all_active{
+  color:#b3b3b3;
 }
 
 .activities_my{
