@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0" name="viewport" />
+    <title>活动列表</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
+    <script src="lib/handlebars-1.0.0.beta.6.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+<body>
+    <div class="act-container">
+        <div class="activities_list">
+
+        </div>
+    </div>
+
+    <!--活动模板-->
+    <script id="activities_list" type="text/x-handlebars-template">
+        {{#each this}}
+            <a href='activity_info.html?act_id={{id}}' class="activity-list">
+                <img src='{{ cover }}' alt="img" class="cover">
+                <div class="header">
+                    <span class="title">{{ title }}</span>
+                    {{#compare min_price 0}}
+                        <span class="price">免费</span>
+                    {{else}}
+                        <span class="price">¥{{ min_price }}</span>
+                    {{/compare}}
+                </div>
+            </a>
+        {{/each}}
+    </script>
+
+    <!--定义根font-size-->
+    <script type="text/javascript">
+        var clientWidth = document.documentElement.clientWidth
+        document.documentElement.style.fontSize = clientWidth/3.75 + "px";
+        window.onresize = function(){
+            clientWidth = document.documentElement.clientWidth
+            document.documentElement.style.fontSize = clientWidth/3.75 + "px";
+        }
+    </script>
+</body>
+</html>
