@@ -2,8 +2,12 @@ var invite_code= getUrlParam('invite_code')
 var origin_request = document.location.origin
 var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities'
 var myActivityUrl = 'https://devapi.kuban.io/api/v1/activities/my_activities'
-var tokens = ['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0',
-             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc5NjYsInZlcnNpb24iOjEsImV4cCI6MTUwNzY5NDcxNywiaWF0IjoxNTA1MTAyNzE3LCJlbnRlcnByaXNlX2lkIjpudWxsfQ.p5TAd9lv6j2xCT-CTUkUpGatk3IIK1nr5-eY82gjOw4']
+var token = getUrlParam('token')
+var space_id = getUrlParam('space_id')
+//var space_id = 3
+// var tokens =    ['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0',
+//         'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc5NjYsInZlcnNpb24iOjEsImV4cCI6MTUwNzY5NDcxNywiaWF0IjoxNTA1MTAyNzE3LCJlbnRlcnByaXNlX2lkIjpudWxsfQ.p5TAd9lv6j2xCT-CTUkUpGatk3IIK1nr5-eY82gjOw4']
+var jsBridge
 
 $(function () {
     var activities_list = $('.activities_list')
@@ -41,7 +45,7 @@ $(function () {
     }
 
     function submitAjax(url, params, type){
-        var token = type=='list'? tokens[0]:tokens[1];
+        //var token = type=='list'? tokens[0]:tokens[1];
         $.ajax({
             type: 'get',
             url: url,
@@ -53,7 +57,7 @@ $(function () {
                     'Accept' , 'application/json'
                 )
                 xhr.setRequestHeader(
-                    'X-space-id' , '3'
+                    'X-space-id' , space_id
                 )
                 xhr.setRequestHeader(
                     'Authorization' , 'Bearer ' + token
@@ -85,42 +89,69 @@ $(function () {
     }
 });
 
-function connectWebViewJavascriptBridge(callback) {
-    if (window.WebViewJavascriptBridge) {
-        callback(WebViewJavascriptBridge)
+function setupKBWebviewJSBridge(callback) {
+    if (window.KBWebviewAndroidJSBridge) {
+        callback(KBWebviewAndroidJSBridge)
     } else {
         document.addEventListener(
-            'WebViewJavascriptBridgeReady'
+            'KBWebviewAndroidJSBridgeReady'
             , function() {
-                callback(WebViewJavascriptBridge)
+                callback(KBWebviewAndroidJSBridge)
             },
             false
         );
     }
+
+    // for ios
+    if (window.KBWebviewJSBridge) {
+        return callback(KBWebviewJSBridge);
+    }
+    if (window.KBWVJSBCallBacks) {
+        return window.KBWVJSBCallBacks.push(callback);
+    }
+    window.KBWVJSBCallBacks = [callback];
+    var GCWVJSBIframe = document.createElement('iframe');
+    GCWVJSBIframe.style.display = 'none';
+    GCWVJSBIframe.src = 'gcwvjsbscheme://__GC_BRIDGE_LOADED__';
+    document.documentElement.appendChild(GCWVJSBIframe);
+    setTimeout(function() { document.documentElement.removeChild(GCWVJSBIframe)
+    }, 0);
 }
 
+setupKBWebviewJSBridge(function(bridge) {
+    bridge.init(function(message, responseCallback) {
+        var data = {
+            'Javascript Responds': '测试中文!'
+        };
+        responseCallback(data);
+    });
 
-function login(id) {
+    var uniqueId = 1
+    function log(message, data) {
+        var log = document.getElementById('log')
+        var el = document.createElement('div')
+        el.className = 'logLine'
+        el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
+        if (log.children.length) { log.insertBefore(el, log.children[0]) }
+        else { log.appendChild(el) }
+    }
 
-    connectWebViewJavascriptBridge(function(bridge) {
-        bridge.init(function(message, responseCallback) {
-
-            var data = {
-                'json': 'JS返回任意数据!'
-            };
-            responseCallback(data);
-        });
-        bridge.registerHandler('getUserInfo', function(data, responseCallback) {
-            data_wangxuan = data
-            document.getElementById('info').innerHTML = data
-            // 把处理好的结果返回给OC
-            responseCallback({"userID":"DX001", "userName":"旋之华", "age":"18", "otherName":"旋之华"})
-        });
-        bridge.callHandler(
-            'wangxuan'
-            , '/activity_info.html?act_id=' + id
-        );
+    bridge.registerHandler('getUserInfo', function(data, responseCallback) {
+        var responseData = { 'Javascript Says':'Right back atcha!','name':'whe' }
+        data_wangxuan = data
+        document.getElementById('info').innerHTML = data
+        responseCallback({"userID":"DX001", "userName":"旋之华", "age":"18", "otherName":"旋之华"})
     })
+
+    document.body.appendChild(document.createElement('br'))
+    jsBridge=bridge;
+})
+
+function toActivity(id) {
+    jsBridge.callHandler(
+        'jumpDetail'
+        , '/activity_info.html?act_id=' + id
+    );
 }
 
 function getUrlParam(name) {

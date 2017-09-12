@@ -26,9 +26,10 @@
     </div>
 
     <!--活动模板-->
+    <!--href='activity_info.html?act_id={{id}}'-->
     <script id="activities_list" type="text/x-handlebars-template">
         {{#each this}}
-            <a href='activity_info.html?act_id={{id}}' class="activity-list">
+            <a  class="activity-list" onClick="toActivity({{id}})">
                 <div class="single">
                     <img src='{{ cover }}' alt="img" class="cover">
                     <div class="header">

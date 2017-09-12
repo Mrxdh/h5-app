@@ -28,7 +28,7 @@
 <!--活动模板-->
     <script id="activities_detail" type="text/x-handlebars-template">
         <div class="title">
-            <span class="title_content">{{ title }}</span>
+            <span class="title_content" onClick="toOC()">{{ title }}</span>
             {{#compare min_price 0}}
             <span class="price">免费</span>
             {{else}}
