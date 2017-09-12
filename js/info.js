@@ -15,7 +15,8 @@ $(function () {
     var tab_title_comment = $('.tab_title_comment')
     var tab_detail = $('.tab_detail');
     var tab_comment = $('.tab_comment'),
-        description = $('.description');
+        description = $('.description'),
+        heart = $('.heart');
 
     tab_title_details.on('click',function(){
         tab_comment.hide();
@@ -28,6 +29,14 @@ $(function () {
         tab_comment.show();
         tab_title_comment.addClass('tab_style')
         tab_title_details.removeClass('tab_style')
+    })
+    heart.on('click',function(){
+        if(heart.attr('src') == 'img/like_normal@2x.png'){
+            heart.attr('src','img/like_pressed@2x.png')
+        }else{
+            heart.attr('src','img/like_normal@2x.png')
+        }
+
     })
 
 })
