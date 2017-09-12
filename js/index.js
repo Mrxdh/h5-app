@@ -2,11 +2,11 @@ var invite_code= getUrlParam('invite_code')
 var origin_request = document.location.origin
 var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities'
 var myActivityUrl = 'https://devapi.kuban.io/api/v1/activities/my_activities'
-var token = getUrlParam('token')
-var space_id = getUrlParam('space_id')
-//var space_id = 3
-// var tokens =    ['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0',
-//         'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc5NjYsInZlcnNpb24iOjEsImV4cCI6MTUwNzY5NDcxNywiaWF0IjoxNTA1MTAyNzE3LCJlbnRlcnByaXNlX2lkIjpudWxsfQ.p5TAd9lv6j2xCT-CTUkUpGatk3IIK1nr5-eY82gjOw4']
+//var token = getUrlParam('token')
+//var space_id = getUrlParam('space_id')
+var space_id = 3
+var tokens =    ['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0',
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc5NjYsInZlcnNpb24iOjEsImV4cCI6MTUwNzY5NDcxNywiaWF0IjoxNTA1MTAyNzE3LCJlbnRlcnByaXNlX2lkIjpudWxsfQ.p5TAd9lv6j2xCT-CTUkUpGatk3IIK1nr5-eY82gjOw4']
 var jsBridge
 
 $(function () {
@@ -45,7 +45,7 @@ $(function () {
     }
 
     function submitAjax(url, params, type){
-        //var token = type=='list'? tokens[0]:tokens[1];
+        var token = type=='list'? tokens[0]:tokens[1];
         $.ajax({
             type: 'get',
             url: url,
@@ -57,7 +57,7 @@ $(function () {
                     'Accept' , 'application/json'
                 )
                 xhr.setRequestHeader(
-                    'X-space-id' , space_id
+                    'X-space-id' , '3'
                 )
                 xhr.setRequestHeader(
                     'Authorization' , 'Bearer ' + token
@@ -73,6 +73,9 @@ $(function () {
     function getData(data, type) {
         var activitiesListTemplate = Handlebars.compile($("#activities_list").html())
         if(type == 'list'){
+            for(var i in data){
+                data[i].act_id = data[i].id
+            }
             activities_list.html(activitiesListTemplate(data))
         }else{
             for(var i in data){
@@ -83,8 +86,11 @@ $(function () {
                 data[i].end_at = data[i].activity.end_at;
                 data[i].location = {};
                 data[i].location.name = data[i].activity.location_name;
+                data[i].status_tag = data[i].status;
+                data[i].act_id = data[i].activity.id
             }
             activities_my.html(activitiesListTemplate(data))
+            console.log(data,'----------')
         }
     }
 });

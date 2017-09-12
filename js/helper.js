@@ -8,6 +8,36 @@ Handlebars.registerHelper("compare",function(v1,v2,options){
     }
 });
 Handlebars.registerHelper("substring",function(string,index1,index2){
-    string = string + '';
+    string = string +'';
     return string.substring(index1,index2)
 });
+Handlebars.registerHelper("stage",function(value,type){
+    var status;
+    if(type == 1){
+        status = {
+            processing:'正在进行',
+            soon:'即将开始',
+            active:'正在进行',
+            ended:'已结束'
+        };
+    }else{
+        status = {
+            processing:'p_bg',
+            soon:'s_bg',
+            active:'p_bg',
+            ended:'e_bg'
+
+        };
+    }
+    return status[value];
+});
+Handlebars.registerHelper("state",function(value){
+    var state = {
+        publishing:'运营',
+        soon:'即将开始',
+        active:'正在进行',
+
+    };
+    return state[value];
+});
+

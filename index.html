@@ -26,12 +26,14 @@
     </div>
 
     <!--活动模板-->
-    <!--href='activity_info.html?act_id={{id}}'-->
     <script id="activities_list" type="text/x-handlebars-template">
         {{#each this}}
-            <a  class="activity-list" onClick="toActivity({{id}})">
+            <a href='activity_info.html?act_id={{act_id}}' class="activity-list" onClick="toActivity({{act_id}})">
                 <div class="single">
                     <img src='{{ cover }}' alt="img" class="cover">
+                    <div class="state">
+                        <span class="status_tag {{stage status_tag 2}}">{{stage status_tag 1}}</span>
+                    </div>
                     <div class="header">
                         <span class="title">{{ title }}</span>
                         {{#compare min_price 0}}
@@ -41,15 +43,12 @@
                         {{/compare}}
                     </div>
                     <div class="time">
-                        <img src='' alt='img' class="t_icon">
-                        <span class="d_time">
-                        {{substring start_at 5 7}}月{{substring start_at 8 10}}日 —
-                        {{substring end_at 5 7}}月{{substring end_at 8 10}}日
-                    </span>
+                        <img src='img/time@2x.png' alt='img' class="t_icon">
+                        <span class="d_time">{{substring start_at 5 7}}月{{substring start_at 8 10}}日 —{{substring end_at 5 7}}月{{substring end_at 8 10}}日</span>
                     </div>
                     <div class="location">
                         <div>
-                            <img src="" alt="img">
+                            <img src="img/address@2x.png" alt="img">
                             <span>{{ location.name }}</span>
                         </div>
                         <div>剩余名额{{ tickets_num }}</div>

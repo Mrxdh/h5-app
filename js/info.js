@@ -1,19 +1,24 @@
 var invite_code= getUrlParam('act_id')
 var origin_request = document.location.origin
 var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities/'
-//var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0'
-var token = getUrlParam('token')
-var space_id = getUrlParam('space_id')
+var commentUrl = 'https://devapi.kuban.io/api/v1/activities/'+invite_code+'/comments'
+var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0'
+//var token = getUrlParam('token')
+//var space_id = getUrlParam('space_id')
 var infoData = null
 
 $(function () {
-    var info = $('.info')
-    var activities_detail = $('.activities_detail')
-    submitAjax(activitiesUrl)
-    function submitAjax(url, params){
+    var info = $('.info'),
+        activities_detail = $('.activities_detail'),
+        activities_comments = $('.activities_comments')
+
+    submitAjax(activitiesUrl,{},'act')
+    submitAjax(commentUrl,{},'comment')
+    function submitAjax(url, params,type){
+        var urls = type == 'comment'? url:url+invite_code
     $.ajax({
         type: 'get',
-        url: url + invite_code,
+        url: urls,
         data : params || {},
         ContentType: 'application/json',
         dataType: 'json',
@@ -22,22 +27,58 @@ $(function () {
                 'Accept' , 'application/json'
             )
             xhr.setRequestHeader(
-                'X-space-id' , space_id
+                'X-space-id' , '3'
             )
             xhr.setRequestHeader(
                 'Authorization' , 'Bearer ' + token
             )
         },
         success: function(data){
+
             infoData = data
-            var activitiesListTemplate = Handlebars.compile($("#activities_detail").html())
-            activities_detail.html(activitiesListTemplate(data))
+            console.log(type, '  typetype')
+            if(type == 'comment'){
+                var a_comment = Handlebars.compile($('#a_comments').html())
+                console.log(a_comment(data), ' a_comment(data)a_comment(data)')
+                activities_comments.html(a_comment(data));
+                console.log(data,'-============----')
+            }else{
+                var activitiesListTemplate = Handlebars.compile($("#activities_detail").html())
+                activities_detail.html(activitiesListTemplate(data));
+                var tab_title_details = $('.tab_title_details')
+                var tab_title_comment = $('.tab_title_comment')
+                var tab_detail = $('.tab_detail');
+                var tab_comment = $('.tab_comment'),
+                    description = $('.description');
+
+                tab_title_details.on('click',function(){
+                    tab_comment.hide();
+                    tab_detail.show();
+                    tab_title_details.addClass('tab_style')
+                    tab_title_comment.removeClass('tab_style')
+                });
+
+                tab_title_comment.on('click',function(){
+                    tab_detail.hide();
+                    tab_comment.show();
+                    tab_title_comment.addClass('tab_style')
+                    tab_title_details.removeClass('tab_style')
+                })
+                console.log(data,'----------------')
+
+                description.html(data.details)
+            }
+
+
+
         },
         error: function(xhr){
 
         }
     })
     }
+
+
     
 })
 

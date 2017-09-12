@@ -42,12 +42,38 @@ a{
 
 .activity-list{
   .single{
+    height:3.12rem;
     background:#ffffff;
     padding:0.12rem 0.16rem ;
     margin-bottom:0.16rem;
+    position:relative;
     .cover{
       width: 100%;
       margin-top:0.16rem;
+    }
+    .state{
+      position:absolute;
+      top:0.4rem;
+      left:0.3rem;
+
+      span{
+        padding:0.04rem;
+        color:#fff;
+      }
+
+
+      .p_bg{
+        background-color: #ff5a60;
+        -webkit-border-radius:0.05rem;
+        -moz-border-radius:0.05rem;
+        border-radius:0.03rem;
+      }
+      .s_bg{
+        background-color: #f6a623;
+      }
+      .e_bg{
+        background-color: #c0c0c0;
+      }
     }
     .header{
       display: flex;
@@ -75,6 +101,12 @@ a{
       font-size: 0.12rem;
       color: #999999;
       margin-top:0.12rem;
+      line-height:0.12rem;
+      img{
+        width:0.12rem;
+        height:0.12rem;
+        padding-right: 0.08rem;
+      }
     }
     .location{
       display:flex;
@@ -82,6 +114,11 @@ a{
       font-size: 0.12rem;
       color: #999999;
       margin-top:0.13rem;
+      line-height:0.12rem;
+      img{
+        width:0.12rem;
+        padding-right: 0.08rem;
+      }
     }
   }
 
