@@ -112,7 +112,14 @@ a{
                 border-radius:100%;
               }
             }
-
+            .comment_img{
+              display:flex;
+              justify-content:space-between;
+              img{
+                width:0.12rem;
+                padding-right:0.05rem;
+              }
+            }
           }
         }
         .tab_title{
