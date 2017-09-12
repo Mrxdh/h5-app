@@ -54,7 +54,7 @@ a{
     .state{
       position:absolute;
       top:0.4rem;
-      left:0.3rem;
+      left:0.24rem;
 
       span{
         padding:0.04rem;
@@ -116,12 +116,20 @@ a{
       margin-top:0.13rem;
       line-height:0.12rem;
       img{
-        width:0.12rem;
+        height:0.12rem;
         padding-right: 0.08rem;
       }
     }
   }
 
+}
+.no_active{
+  text-align: center;
+  div{
+    font-size: 0.2rem;
+    padding: 0.16rem;
+    color: #6e6e6e;
+  }
 }
 .my_active{
   color:#b3b3b3;

@@ -55,17 +55,17 @@ a{
         padding-top:0.08rem;
         border-bottom:1px solid #e1e1e1;
         .status{
-          font-size: 0.12rem;
+          font-size: 0.11rem;
           color: #3cb43c;
-          padding:0.08rem;
+          padding:0.05rem 0.08rem;
           border-radius: 0.04rem;
           background-color: rgba(59, 180, 59, 0.15);
         }
         .status_tag{
-          font-size: 0.11rem;
-          padding:0.05rem;
+          font-size: 0.1rem;
+          padding:0.02rem 0.07rem;
           color: #ffffff;
-          border-radius: 0.02rem;
+          border-radius: 0.04rem;
           line-height: 0.2rem;
         }
         .p_bg{
@@ -76,6 +76,9 @@ a{
         }
         .e_bg{
           background-color: #c0c0c0;
+        }
+        .a_bg{
+          background-color: #9b9b9b;
         }
       }
       .act_detail {
@@ -101,6 +104,14 @@ a{
             padding-right: 0.08rem;
           }
         }
+        .people_num{
+          display: flex;
+          justify-content: space-between;
+          img{
+            width:0.28rem;
+            border-radius:100%;
+          }
+        }
       }
       .act_tab{
         padding-top:0.28rem;
@@ -114,16 +125,25 @@ a{
               .word{
                 word-wrap: break-word;
                 width:80%;
+                padding-left:0.16rem;
               }
               img{
                 width:0.32rem;
-                padding-right:0.16rem;
                 border-radius:100%;
+
+
               }
             }
             .comment_img{
               display:flex;
               justify-content:space-between;
+              .star{
+                padding-left:0.48rem;
+              }
+              .date{
+                font-size: 0.11rem;
+                color: #999999;
+              }
               img{
                 width:0.12rem;
                 padding-right:0.05rem;
