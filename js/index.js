@@ -15,13 +15,6 @@ $(function () {
     var allActive = $(".all_active");
     var myActive = $(".my_active");
 
-    submitAjax(activitiesUrl, {
-        per_page : 100
-    }, 'list')
-
-    submitAjax(myActivityUrl, {
-        per_page : 100
-    }, 'my')
 
     allActive.on('click',function(){
         changeStyle('my')
@@ -44,55 +37,7 @@ $(function () {
         }
     }
 
-    function submitAjax(url, params, type){
-        var token = type=='list'? tokens[0]:tokens[1];
-        $.ajax({
-            type: 'get',
-            url: url,
-            data : params || {},
-            ContentType: 'application/json',
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    'Accept' , 'application/json'
-                )
-                xhr.setRequestHeader(
-                    'X-space-id' , '3'
-                )
-                xhr.setRequestHeader(
-                    'Authorization' , 'Bearer ' + token
-                )
-            },
-            success: function(data){
-                getData(data, type)
-            },
-            error: function(xhr){
-            }
-        })
-    }
-    function getData(data, type) {
-        var activitiesListTemplate = Handlebars.compile($("#activities_list").html())
-        if(type == 'list'){
-            for(var i in data){
-                data[i].act_id = data[i].id
-            }
-            activities_list.html(activitiesListTemplate(data))
-        }else{
-            for(var i in data){
-                data[i].title = data[i].activity.title;
-                data[i].cover = data[i].activity.cover;
-                data[i].min_price = data[i].total_amount;
-                data[i].start_at = data[i].activity.start_at;
-                data[i].end_at = data[i].activity.end_at;
-                data[i].location = {};
-                data[i].location.name = data[i].activity.location_name;
-                data[i].status_tag = data[i].status;
-                data[i].act_id = data[i].activity.id
-            }
-            activities_my.html(activitiesListTemplate(data))
-            console.log(data,'----------')
-        }
-    }
+
 });
 
 function setupKBWebviewJSBridge(callback) {

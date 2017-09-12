@@ -31,10 +31,10 @@ $(function () {
         tab_title_details.removeClass('tab_style')
     })
     heart.on('click',function(){
-        if(heart.attr('src') == 'img/like_normal@2x.png'){
-            heart.attr('src','img/like_pressed@2x.png')
+        if(heart.attr('src') == 'https://media-ssl.kuban.io/static/h5/images/hd/like_pressed@2x.png'){
+            heart.attr('src','https://media-ssl.kuban.io/static/h5/images/hd/like_normal@2x.png')
         }else{
-            heart.attr('src','img/like_normal@2x.png')
+            heart.attr('src','https://media-ssl.kuban.io/static/h5/images/hd/like_pressed@2x.png')
         }
 
     })
