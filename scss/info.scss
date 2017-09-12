@@ -104,7 +104,10 @@ a{
               display:flex;
               justify-content:left;
               line-height:0.35rem;
-
+              .word{
+                word-wrap: break-word;
+                width:80%;
+              }
               img{
                 width:0.32rem;
                 padding-right:0.16rem;
