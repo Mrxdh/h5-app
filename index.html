@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" style="font-size: 100px;"><head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0" name="viewport">
     <title>活动列表</title>
     <link rel="stylesheet" href="./styles/index.css">
     <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
@@ -11,62 +9,191 @@
     <script src="./js/index.js"></script>
 </head>
 <body>
-    <div class="tab_head">
-        <a><span class="all_active click_style">所有活动</span></a>
-        <a><span class="my_active">我的活动</span></a>
-    </div>
+<div class="tab_head">
+    <a><span class="all_active click_style">所有活动</span></a>
+    <a><span class="my_active">我的活动</span></a>
+</div>
 
-    <div class="act-container">
-        <div class="activities_list">
+<div class="act-container">
+    <div class="activities_list">
 
-        </div>
-        <div class="activities_my">
-
-        </div>
-    </div>
-
-    <!--活动模板-->
-    <script id="activities_list" type="text/x-handlebars-template">
-        {{#each this}}
-            <a href='activity_info.html?act_id={{act_id}}' class="activity-list" onClick="toActivity({{act_id}})">
-                <div class="single">
-                    <img src='{{ cover }}' alt="img" class="cover">
-                    <div class="state">
-                        <span class="status_tag {{stage status_tag 2}}">{{stage status_tag 1}}</span>
-                    </div>
-                    <div class="header">
-                        <span class="title">{{ title }}</span>
-                        {{#compare min_price 0}}
-                        <span class="price_1">免费</span>
-                        {{else}}
-                        <span class="price_2">¥{{ min_price }}</span>
-                        {{/compare}}
-                    </div>
-                    <div class="time">
-                        <img src='img/time@2x.png' alt='img' class="t_icon">
-                        <span class="d_time">{{substring start_at 5 7}}月{{substring start_at 8 10}}日 —{{substring end_at 5 7}}月{{substring end_at 8 10}}日</span>
-                    </div>
-                    <div class="location">
-                        <div>
-                            <img src="img/address@2x.png" alt="img">
-                            <span>{{ location.name }}</span>
-                        </div>
-                        <div>剩余名额{{ tickets_num }}</div>
-                    </div>
+        <a href="activity_info.html?act_id=6" class="activity-list" onclick="toActivity(6)">
+            <div class="single">
+                <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                <div class="state">
+                    <span class="status_tag p_bg">正在进行</span>
                 </div>
+                <div class="header">
+                    <span class="title">测试(6个字符)</span>
 
-            </a>
-        {{/each}}
-    </script>
+                    <span class="price_1">免费</span>
 
-    <!--定义根font-size-->
-    <script type="text/javascript">
-        var clientWidth = document.documentElement.clientWidth
+                </div>
+                <div class="time">
+                    <img src="img/time@2x.png" alt="img" class="t_icon">
+                    <span class="d_time">09月06日 —09月06日</span>
+                </div>
+                <div class="location">
+                    <div>
+                        <img src="img/address@2x.png" alt="img">
+                        <span>三元桥店</span>
+                    </div>
+                    <div>剩余名额176</div>
+                </div>
+            </div>
+
+        </a>
+
+        <a href="activity_info.html?act_id=8" class="activity-list" onclick="toActivity(8)">
+            <div class="single">
+                <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                <div class="state">
+                    <span class="status_tag p_bg">正在进行</span>
+                </div>
+                <div class="header">
+                    <span class="title">三元桥撸串</span>
+
+                    <span class="price_1">免费</span>
+
+                </div>
+                <div class="time">
+                    <img src="img/time@2x.png" alt="img" class="t_icon">
+                    <span class="d_time">09月06日 —09月06日</span>
+                </div>
+                <div class="location">
+                    <div>
+                        <img src="img/address@2x.png" alt="img">
+                        <span>三元桥店</span>
+                    </div>
+                    <div>剩余名额389</div>
+                </div>
+            </div>
+
+        </a>
+
+        <a href="activity_info.html?act_id=14" class="activity-list" onclick="toActivity(14)">
+            <div class="single">
+                <img src="https://media-ssl.kuban.io/static/wechat/app/images/img_pic_tu.png" alt="img" class="cover">
+                <div class="state">
+                    <span class="status_tag p_bg">正在进行</span>
+                </div>
+                <div class="header">
+                    <span class="title">来了就知道</span>
+
+                    <span class="price_1">免费</span>
+
+                </div>
+                <div class="time">
+                    <img src="img/time@2x.png" alt="img" class="t_icon">
+                    <span class="d_time">09月12日 —09月30日</span>
+                </div>
+                <div class="location">
+                    <div>
+                        <img src="img/address@2x.png" alt="img">
+                        <span>三元桥店</span>
+                    </div>
+                    <div>剩余名额297</div>
+                </div>
+            </div>
+
+        </a>
+
+        <a href="activity_info.html?act_id=16" class="activity-list" onclick="toActivity(16)">
+            <div class="single">
+                <img src="https://media-ssl.kuban.io/static/wechat/app/images/img_pic_tu.png" alt="img" class="cover">
+                <div class="state">
+                    <span class="status_tag p_bg">正在进行</span>
+                </div>
+                <div class="header">
+                    <span class="title">来了就知道</span>
+
+                    <span class="price_2">¥0.01</span>
+
+                </div>
+                <div class="time">
+                    <img src="img/time@2x.png" alt="img" class="t_icon">
+                    <span class="d_time">09月12日 —09月30日</span>
+                </div>
+                <div class="location">
+                    <div>
+                        <img src="img/address@2x.png" alt="img">
+                        <span>三元桥店</span>
+                    </div>
+                    <div>剩余名额898</div>
+                </div>
+            </div>
+
+        </a>
+
+        <a href="activity_info.html?act_id=15" class="activity-list" onclick="toActivity(15)">
+            <div class="single">
+                <img src="https://media-ssl.kuban.io/static/wechat/app/images/img_pic_tu.png" alt="img" class="cover">
+                <div class="state">
+                    <span class="status_tag p_bg">正在进行</span>
+                </div>
+                <div class="header">
+                    <span class="title">来了就知道</span>
+
+                    <span class="price_2">¥0.01</span>
+
+                </div>
+                <div class="time">
+                    <img src="img/time@2x.png" alt="img" class="t_icon">
+                    <span class="d_time">09月12日 —09月30日</span>
+                </div>
+                <div class="location">
+                    <div>
+                        <img src="img/address@2x.png" alt="img">
+                        <span>三元桥店</span>
+                    </div>
+                    <div>剩余名额400</div>
+                </div>
+            </div>
+
+        </a>
+
+    </div>
+    <div class="activities_my">
+
+        <a href="activity_info.html?act_id=6" class="activity-list" onclick="toActivity(6)">
+            <div class="single">
+                <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                <div class="state">
+                    <span class="status_tag p_bg">正在进行</span>
+                </div>
+                <div class="header">
+                    <span class="title">测试(6个字符)</span>
+
+                    <span class="price_2">¥10</span>
+
+                </div>
+                <div class="time">
+                    <img src="img/time@2x.png" alt="img" class="t_icon">
+                    <span class="d_time">09月06日 —09月06日</span>
+                </div>
+                <div class="location">
+                    <div>
+                        <img src="img/address@2x.png" alt="img">
+                        <span>三元桥店</span>
+                    </div>
+                    <div>剩余名额</div>
+                </div>
+            </div>
+
+        </a>
+
+    </div>
+</div>
+
+
+<!--定义根font-size-->
+<script type="text/javascript">
+    var clientWidth = document.documentElement.clientWidth
+    document.documentElement.style.fontSize = clientWidth/3.75 + "px";
+    window.onresize = function(){
+        clientWidth = document.documentElement.clientWidth
         document.documentElement.style.fontSize = clientWidth/3.75 + "px";
-        window.onresize = function(){
-            clientWidth = document.documentElement.clientWidth
-            document.documentElement.style.fontSize = clientWidth/3.75 + "px";
-        }
-    </script>
-</body>
-</html>
+    }
+</script>
+
+</body></html>

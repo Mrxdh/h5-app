@@ -17,11 +17,10 @@ a{
 }
 
 .header{
-  width:100%;
+
   .head_icon{
     display:flex;
     justify-content:space-between;
-    padding:0 0.16rem;
   }
 }
 
@@ -99,6 +98,23 @@ a{
       }
       .act_tab{
         padding-top:0.28rem;
+        .tab_comment{
+          display:none;
+          .comment{
+            .comment_act{
+              display:flex;
+              justify-content:left;
+              line-height:0.35rem;
+
+              img{
+                width:0.32rem;
+                padding-right:0.16rem;
+                border-radius:100%;
+              }
+            }
+
+          }
+        }
         .tab_title{
           display:flex;
           justify-content:space-around;
@@ -134,7 +150,6 @@ a{
             position: relative;
             background-color: #fff;
             display: inline-block;
-            width: 100%;
             overflow-x: auto;
             box-sizing: border-box;
             white-space: nowrap;
@@ -153,9 +168,7 @@ a{
             }
           }
         }
-        .tab_comment{
-          display:none;
-        }
+
       }
     }
   }
