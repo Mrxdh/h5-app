@@ -1,0 +1,50 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+img{
+	display: block;
+}
+
+body{
+	padding: 0.15rem;
+	color: #222222;
+}
+
+.details_title{
+	font-size: 0.24rem;
+}
+
+.details_time{
+	color: #999999;
+	font-size: 0.14rem;
+	padding-top: 0.16rem;
+}
+
+.details_time>span:last-child{
+	margin-left: 0.15rem;
+}
+
+.details_content{
+	padding-top: 0.2rem;
+}
+
+.comtent_img{
+	width: 100%;
+
+}
+
+.comtent_img > img{
+	width: 100%;
+}
+
+.comtent_text{
+	font-size: 0.14rem;
+	padding-top: 0.15rem;
+	text-indent: .3rem;
+}
+
+.comtent_text > p{
+	line-height: .22rem;
+}

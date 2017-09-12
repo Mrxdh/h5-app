@@ -1,21 +1,9 @@
-var invite_code= getUrlParam('act_id')
-var origin_request = document.location.origin
-var activitiesUrl = 'https://devapi.kuban.io/api/v1/activities/'
-var commentUrl = 'https://devapi.kuban.io/api/v1/activities/'+invite_code+'/comments'
-var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjUwMjYsInZlcnNpb24iOjEsImV4cCI6MTUwNDg2MDE2MSwiaWF0IjoxNTA0NjAwOTYxLCJlbnRlcnByaXNlX2lkIjpudWxsfQ.D_ndfn7tUDhmL5YrQOZ2weZ9eipxEmzijLDUFEMGIh0'
-//var token = getUrlParam('token')
-//var space_id = getUrlParam('space_id')
-var infoData = null
-
 $(function () {
-    var info = $('.info'),
-        activities_detail = $('.activities_detail'),
-        activities_comments = $('.activities_comments')
+    var info = $('.info')
     var tab_title_details = $('.tab_title_details')
     var tab_title_comment = $('.tab_title_comment')
     var tab_detail = $('.tab_detail');
     var tab_comment = $('.tab_comment'),
-        description = $('.description'),
         heart = $('.heart');
 
     tab_title_details.on('click',function(){
@@ -96,8 +84,8 @@ setupKBWebviewJSBridge(function(bridge) {
 
 function toOC() {
     jsBridge.callHandler(
-        'signUp'
-        , { act_id: infoData.id,  ticket_id: infoData.activity_tickets[0].id }
+        'activitySignUp'
+        , { act_id: $('.activities_detail').attr('data-ticket_id'),  ticket_id: $('.activities_detail').attr('data-act_id') }
     );
 }
 
