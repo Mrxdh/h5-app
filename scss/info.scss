@@ -16,16 +16,15 @@ a{
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-.header{
 
-  .head_icon{
-    display:flex;
-    justify-content:space-between;
-  }
-}
 
 .act-container{
   .activities_detail{
+    .header{
+      img{
+        width:100%;
+      }
+    }
     .a_wrapper{
       padding:0 0.16rem;
       .title{
