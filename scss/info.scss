@@ -207,10 +207,12 @@ a{
 .tab_title_details{
   color: #404040;
   opacity: 0.4;
-  display:inline-block;
+  display:flex;
   line-height:0.12rem;
+  align-items: center;
   img{
     width:0.2rem;
+    height:0.2rem;
     padding-right:0.08rem;
 
   }
@@ -218,8 +220,11 @@ a{
 .tab_title_comment{
   color: #404040;
   opacity: 0.4;
+  display:flex;
+  align-items: center;
   img{
     width:0.2rem;
+    height:0.18rem;
     padding-right:0.08rem;
   }
 }
