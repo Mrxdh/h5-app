@@ -92,8 +92,9 @@
             if (type === 'free') {
                 ticket_id = $('.button1').attr('data-ticket-id')
             }
+            alert(ticket_id)
             console.log(act_id, ticket_id)
-            toClientHandler('', { act_id: act_id,  ticket_id: ticket_id }, 'activitySignUp')
+            callClientHandler('', { act_id: act_id,  ticket_id: ticket_id }, 'activitySignUp')
         }
 
         function toShopping () {
@@ -105,6 +106,8 @@
                 active_price = $('.s_content_active').attr('data-price')
                 $('.active_header_price').text(active_price)
                 $('.activity-price').text(active_price)
+                isShowSubtractGray = true
+                $('.order_number_sub img').attr('src', 'https://media-dev-ssl.kuban.io/subtract-gray.png')
                 return
             }
 
@@ -226,12 +229,17 @@
                     <div class="s_content_box">
                         <span data-ticket-id="35" data-price="0.02" class="s_content_active">成人票</span>
                         <span data-ticket-id="37" data-price="0.04">儿童票</span>
+                        <span data-ticket-id="37" data-price="0.04">儿童票</span>
+                        <span data-ticket-id="37" data-price="0.04">儿童票</span>
+                        <span data-ticket-id="37" data-price="0.04">儿童票</span>
+                        <span data-ticket-id="37" data-price="0.04">儿童票</span>
+                        <span data-ticket-id="37" data-price="0.04">儿童票</span>
                     </div>
                 </div>
             </div>
             <!--如果免费的话给我一个ticket-id  如果有多张门票的情况下默认选择第一张门票-->
-            <div class="bt button1" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div>
-            <div class="bt button2" onclick="toShopping()"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span>立即报名</span></div>
+            <!--<div class="bt button1" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div>-->
+            <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div>
         </div>
         <div class="shadow-box">
         </div>
