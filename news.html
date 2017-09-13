@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1"/>
+	<title>资讯</title>
+	<link rel="stylesheet" href="styles/news_index.css">
+	<script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
+	<script src="js/common.js"></script>
+	<script>
+		function toNews(id, ele) {
+			var url = $(ele).attr('data-redirect-url')
+			callClientHandler(url || ('/details.html?id='+ id), {}, url ? 'redirectUrl' : 'newsGoToPage')
+		}
+	</script>
+</head>
+<body>
+	<div class="news_list" onclick="toNews(1, this)" data-redirect-url='https://www.baidu.com'>
+		<div class="news_img">
+			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+		</div>
+		<div class="news_content">
+			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
+			<p>08月30日 15:31</p>
+		</div>
+	</div>
+	<div class="news_list" onclick="toNews(1, this)">
+		<div class="news_img">
+			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+		</div>
+		<div class="news_content">
+			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
+			<p>08月30日 15:31</p>
+		</div>
+	</div>
+	<div class="news_list" onclick="toNews(1)">
+		<div class="news_img">
+			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+		</div>
+		<div class="news_content">
+			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
+			<p>08月30日 15:31</p>
+		</div>
+	</div>
+	<div class="news_list" onclick="toNews(1, 'www.baidu.com')">
+		<div class="news_img">
+			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+		</div>
+		<div class="news_content">
+			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
+			<p>08月30日 15:31</p>
+		</div>
+	</div>
+	<div class="news_list" onclick="toNews(1, 'www.baidu.com')">
+		<div class="news_img">
+			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+		</div>
+		<div class="news_content">
+			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
+			<p>08月30日 15:31</p>
+		</div>
+	</div>
+	<div class="news_list" onclick="toNews(1, 'www.baidu.com')">
+		<div class="news_img">
+			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+		</div>
+		<div class="news_content">
+			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
+			<p>08月30日 15:31</p>
+		</div>
+	</div>
+	<div class="no_active">
+		<img src="https://media-ssl.kuban.io/static/wechat/images/activity/news_none@3x.png" alt="">
+		<div>暂无资讯</div>
+	</div>
+
+</body>
+</html>

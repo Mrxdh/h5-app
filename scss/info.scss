@@ -10,24 +10,48 @@ html,body{
   background: #f7f7f7;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a{
   text-decoration: none;
   color:#000;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+.price1{
+  font-size: 0.2rem;
+  color: #323232;
+}
+.price2, .price3{
+  span{
+    &:nth-child(1){
+      font-size: 0.12rem;
+      color: #ff5a60;
+    }
+    &:nth-child(2){
+      font-size: 0.24rem;
+      color: #ff5a60;
+    }
+  }
+}
 
+.price3 {
+  span{
+    &:nth-child(1){
+      color: #FFF;
+    }
+    &:nth-child(2){
+      color: #FFF;
+    }
+  }
+}
 
 .act-container{
   .activities_detail{
     .header{
-      .heart{
-        width: 0.2rem;
-        height: 0.2rem;
-        position: absolute;
-        top: 0.16rem;
-        right: 0.16rem
-      }
+
       img{
         width:100%;
       }
@@ -43,10 +67,6 @@ a{
           font-weight: 500;
           color: #323232;
         }
-        .price{
-          font-size: 0.2rem;
-          color: #323232;
-        }
       }
       .state{
         display:flex;
@@ -54,12 +74,23 @@ a{
         padding-bottom:0.24rem;
         padding-top:0.08rem;
         border-bottom:1px solid #e1e1e1;
+        .activity-status {
+          width: 0.75rem;
+        }
+        .state_box {
+          overflow: hidden;
+        }
         .status{
+          display: inline-block;
           font-size: 0.11rem;
           color: #3cb43c;
           padding:0.05rem 0.08rem;
           border-radius: 0.04rem;
+          margin-right: 8px;
           background-color: rgba(59, 180, 59, 0.15);
+          &:nth-child(n + 6) {
+            margin-top: 10px;
+          }
         }
         .status_tag{
           font-size: 0.1rem;
@@ -67,6 +98,7 @@ a{
           color: #ffffff;
           border-radius: 0.04rem;
           line-height: 0.2rem;
+          white-space: nowrap;
         }
         .p_bg{
           background-color: #ff5a60;
@@ -240,7 +272,7 @@ a{
   img{
     width:0.2rem;
     height:0.2rem;
-    padding-right:0.08rem;
+    margin-right:0.08rem;
 
   }
 }
@@ -252,9 +284,120 @@ a{
   img{
     width:0.2rem;
     height:0.18rem;
-    padding-right:0.08rem;
+    margin-right:0.08rem;
   }
 }
 .relative_act_img::-webkit-scrollbar {
   display: none;
+}
+.sign_up{
+  position:relative;
+  width: 100%;
+  .s_square{
+    padding-left: 0.16rem;
+    width:100%;
+    z-index: 102;
+    background-color: #ffffff;
+    position:absolute;
+    bottom:0.52rem;
+  }
+  .s_order{
+    padding: 0.16rem 0.16rem 0.16rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  .s_content {
+    padding: 0.16rem 0.16rem 0.16rem 0;
+  }
+
+  .s_content_title {
+    margin-bottom: 0.16rem;
+  }
+
+  .s_content_box {
+    box-sizing: border-box;
+    span {
+      height: 0.3rem;
+      width: 0.8rem;
+      text-align: center;
+      line-height: 0.3rem;
+      margin-right: 0.16rem;
+      border-radius: 5px;
+      border: 1px solid #979797;
+      box-sizing: border-box;
+      display: inline-block;
+
+      &:focus, &:active {
+        background: #ff5a60;
+        border: none;
+        color: #fff;
+      }
+    }
+
+    .s_content_active {
+      background: #ff5a60;
+      border: none;
+      color: #fff;
+    }
+  }
+
+  .order_number {
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .order_title {
+    display: inline-block;
+    height: 0.3rem;
+    line-height: 0.3rem;
+  }
+  .order_number_sub, .order_number_add {
+    display: inline-block;
+    img {
+      width: 0.3rem;
+    }
+  }
+
+  .order_number_sub {
+    margin-right: 0.1rem;
+  }
+  .order_number_add {
+    margin-left: 0.1rem;
+  }
+}
+
+.shadow-box {
+  position: fixed;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: 0.6;
+  background: #000000;
+  display: none;
+}
+
+.shadow-active {
+  display: block!important;
+}
+
+.f_left {
+  float: left;
+}
+
+.f_right {
+  float: right;
+}
+
+.button2 {
+  z-index: 100;
+  position: relative;
+}
+
+.button1 {
+  z-index: 99;
+  position: relative;
 }

@@ -4,7 +4,43 @@
     <title>活动列表</title>
     <link rel="stylesheet" href="./styles/index.css">
     <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/common.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var activities_list = $('.activities_list')
+            var activities_my = $('.activities_my')
+            var allActive = $(".all_active");
+            var myActive = $(".my_active");
+
+
+            allActive.on('click',function(){
+                changeStyle('my')
+            });
+            myActive.on('click',function(){
+                changeStyle('all')
+            });
+
+            function changeStyle(type){
+                if(type == 'my'){
+                    activities_my.hide()
+                    activities_list.show()
+                    allActive.addClass('click_style')
+                    myActive.removeClass('click_style')
+                }else{
+                    activities_list.hide()
+                    activities_my.show()
+                    myActive.addClass('click_style')
+                    allActive.removeClass('click_style')
+                }
+            }
+        });
+
+
+        function toActivity(id, ele) {
+            var url = $(ele).attr('data-redirect-url')
+            callClientHandler(url || ('/activity_info.html?id='+ id), {}, url ? 'redirectUrl' : 'activityGoToPage')
+        }
+    </script>
 </head>
 <body>
 <div class="tab_head">
@@ -15,7 +51,7 @@
 <div class="act-container">
     <div class="activities_list">
 
-        <a href="javascript:void(0);" class="activity-list" onclick="toActivity(6)">
+        <a href="javascript:void(0);" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="www.baidu.com">
             <div class="single">
                 <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
                 <div class="state">
@@ -24,7 +60,6 @@
                 <div class="header">
                     <span class="title">测试(6个字符)</span>
                     <span class="price_1">免费</span>
-
                 </div>
                 <div class="time">
                     <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
@@ -41,7 +76,7 @@
 
         </a>
 
-        <a href="javascript:void(0);" class="activity-list" onclick="toActivity(8)">
+        <a href="javascript:void(0);" class="activity-list" onclick="toActivity(8, this)">
             <div class="single">
                 <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
                 <div class="state">
@@ -202,20 +237,8 @@
     </div>
     <!--缺省显示-->
     <div class="no_active">
-        <img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
+        <img src="https://media-ssl.kuban.io/static/wechat/images/activity/activity_none@3x.png" alt="">
         <div>暂无活动</div>
     </div>
 </div>
-
-
-<!--定义根font-size-->
-<script type="text/javascript">
-    var clientWidth = document.documentElement.clientWidth
-    document.documentElement.style.fontSize = clientWidth/3.75 + "px";
-    window.onresize = function(){
-        clientWidth = document.documentElement.clientWidth
-        document.documentElement.style.fontSize = clientWidth/3.75 + "px";
-    }
-</script>
-
 </body></html>
