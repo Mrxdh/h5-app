@@ -1,39 +1,12 @@
-body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select,blockquote{margin:0;padding:0;font-weight: normal;font-size: 0.14rem}
-
-body{
-  font-family: "PingFang SC";
-}
-
-html,body{
-  min-height: 100%;
-  font-size: 0.14rem;
-  background: #f7f7f7;
-}
-
-* {
-  -webkit-touch-callout:none;  /*系统默认菜单被禁用*/
-  -webkit-user-select:none; /*webkit浏览器*/
-  -khtml-user-select:none; /*早期浏览器*/
-  -moz-user-select:none;/*火狐*/
-  -ms-user-select:none; /*IE10*/
-  user-select:none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-a{
-  text-decoration: none;
-  color:#000;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
+@import "common.scss";
 
 .price1{
   font-size: 0.2rem;
   color: #323232;
 }
+
 .price2, .price3{
+  padding-top: 0.01rem;
   span{
     &:nth-child(1){
       font-size: 0.12rem;
@@ -70,18 +43,19 @@ a{
       .title{
         display:flex;
         justify-content: space-between;
-        padding-top:0.21rem;
+        padding-top:0.18rem;
         .title_content{
           font-size: 0.24rem;
-          font-weight: 500;
+          font-weight: bold;
           color: #323232;
+          width: 2.3rem;
         }
       }
       .state{
         display:flex;
         justify-content:space-between;
         padding-bottom:0.24rem;
-        padding-top:0.08rem;
+        padding-top:0.12rem;
         border-bottom:1px solid #e1e1e1;
         .activity-status {
           width: 0.75rem;
@@ -102,11 +76,11 @@ a{
           }
         }
         .status_tag{
-          font-size: 0.1rem;
-          padding:0.02rem 0.07rem;
+          display: inline-block;
+          font-size: 0.11rem;
+          padding:0.05rem 0.08rem;
           color: #ffffff;
           border-radius: 0.04rem;
-          line-height: 0.2rem;
           white-space: nowrap;
         }
         .p_bg{
@@ -148,108 +122,120 @@ a{
         .people_num{
           display: flex;
           justify-content: space-between;
+          span {
+            line-height: 0.28rem;
+            height: 0.28rem;
+            vertical-align: middle;
+            display: inline-block;
+          }
           img{
             width:0.28rem;
+            height:0.28rem;
             border-radius:100%;
           }
         }
       }
-      .act_tab{
-        padding-top:0.28rem;
-        .tab_comment{
-          display:none;
-          .comment{
-            .comment_act{
-              display:flex;
-              justify-content:left;
-              line-height:0.35rem;
-              .word{
-                word-wrap: break-word;
-                width:80%;
-                padding-left:0.16rem;
-              }
-              img{
-                width:0.32rem;
-                border-radius:100%;
-
-
-              }
+    }
+    .act_tab{
+      padding-top:0.17rem;
+      margin-bottom: 0.32rem;
+      overflow: hidden;
+      .tab_comment {
+        background-color: #f9f9f9;
+        padding: 0.2rem 0.2rem 0.1rem;
+        display:none;
+        .comment{
+          margin-bottom: 0.26rem;
+          .comment_act{
+            display:flex;
+            justify-content:left;
+            line-height:0.35rem;
+            .word{
+              word-wrap: break-word;
+              width:80%;
+              padding-left:0.16rem;
             }
-            .comment_img{
-              display:flex;
-              justify-content:space-between;
-              .star{
-                padding-left:0.48rem;
-              }
-              .date{
-                font-size: 0.11rem;
-                color: #999999;
-              }
-              img{
-                width:0.12rem;
-                padding-right:0.05rem;
-              }
+            img{
+              width:0.32rem;
+              border-radius:100%;
+
+
+            }
+          }
+          .comment_img{
+            display:flex;
+            justify-content:space-between;
+            .star{
+              padding-left:0.48rem;
+            }
+            .date{
+              font-size: 0.11rem;
+              color: #999999;
+            }
+            img{
+              width:0.12rem;
+              padding-right:0.05rem;
             }
           }
         }
-        .tab_title{
-          display:flex;
-          justify-content:space-around;
-          padding-bottom:0.17rem;
-          font-size: 0.12rem;
-          .tab_style{
-            color: #2c2c2f;
-            opacity:1.0;
+      }
+      .tab_title{
+        display:flex;
+        justify-content:space-around;
+        padding-bottom:0.17rem;
+        font-size: 0.12rem;
+        .tab_style{
+          color: #2c2c2f;
+          opacity:1.0;
+        }
+      }
+      .tab_detail{
+        background-color: #f9f9f9;
+        .description{
+          padding:0.2rem 0.2rem 0.1rem;
+        }
+        ul{
+          li{
+            list-style-type: none;
           }
         }
-        .tab_detail{
-          background-color: #f9f9f9;
-          .description{
-            padding:0.2rem 0 0.1rem 0;
-          }
+        img{
+          max-width:100%;
+        }
+      }
+      .relative_act{
+        .relative_act_title{
+          font-size: 0.17rem;
+          color: #323232;
+          padding-top:0.24rem;
+          padding-bottom:0.16rem;
+        }
+        .relative_act_img{
+          position: relative;
+          background-color: #fff;
+          display: inline-block;
+          overflow-x: auto;
+          box-sizing: border-box;
+          white-space: nowrap;
+
           ul{
+            display:flex;
+            justify-content:space-between;
             li{
               list-style-type: none;
-            }
-          }
-          img{
-            max-width:100%;
-          }
-        }
-        .relative_act{
-          .relative_act_title{
-            font-size: 0.17rem;
-            color: #323232;
-            padding-top:0.24rem;
-            padding-bottom:0.16rem;
-          }
-          .relative_act_img{
-            position: relative;
-            background-color: #fff;
-            display: inline-block;
-            overflow-x: auto;
-            box-sizing: border-box;
-            white-space: nowrap;
-
-            ul{
-              display:flex;
-              justify-content:space-between;
-              li{
-                list-style-type: none;
-                img{
-                  width:2.16rem;
-                  height:1.44rem;
-                  padding-right:0.12rem;
-                }
+              img{
+                width:2.16rem;
+                height:1.44rem;
+                padding-right:0.12rem;
               }
             }
           }
         }
-
       }
+
     }
   }
-  .button1{
+  .bt {
     height:0.52rem;
     display:flex;
     align-items:center;
@@ -257,18 +243,14 @@ a{
     background-color: #ff5a60;
     font-size: 0.17rem;
     color: #ffffff;
-    margin-top:0.2rem;
+  }
+
+  .button1{
+    
   }
   .button2{
-    height:0.52rem;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background-color: #ff5a60;
-    font-size: 0.17rem;
-    color: #ffffff;
-    margin-top:0.2rem;
     padding:0 0.16rem;
+    justify-content:space-between;
   }
 }
 
@@ -300,18 +282,20 @@ a{
   display: none;
 }
 .sign_up{
-  position:relative;
+  position: fixed;
+  bottom: 0;
+  overflow: hidden;
   width: 100%;
+  z-index: 160;
   .s_square{
     padding-left: 0.16rem;
     width:100%;
     z-index: 102;
     background-color: #ffffff;
-    position:absolute;
-    bottom:0.52rem;
+    position:relative;
   }
   .s_order{
-    padding: 0.16rem 0.16rem 0.16rem 0;
+    padding: 0.14rem 0.14rem 0.14rem 0;
     overflow: hidden;
     border-bottom: 1px solid #e1e1e1;
   }
@@ -326,10 +310,10 @@ a{
   .s_content_box {
     box-sizing: border-box;
     span {
-      height: 0.35rem;
-      width: 0.9rem;
+      height: 0.4rem;
+      width: 1rem;
       text-align: center;
-      line-height: 0.35rem;
+      line-height: 0.4rem;
       margin-right: 0.16rem;
       border-radius: 5px;
       border: 1px solid #979797;
@@ -337,6 +321,9 @@ a{
       display: inline-block;
       &:nth-child(n + 4) {
         margin-top: 0.12rem;
+      }
+      &:nth-child(3n) {
+        margin-right: 0;
       }
       &:focus, &:active {
         background: #ff5a60;
@@ -349,6 +336,7 @@ a{
       background: #ff5a60;
       border: none;
       color: #fff;
+      border: 1px solid #fff;
     }
   }
 
@@ -381,7 +369,6 @@ a{
 
 .shadow-box {
   position: fixed;
-  height: 100%;
   left: 0;
   right: 0;
   top: 0;

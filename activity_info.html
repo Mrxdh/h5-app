@@ -1,120 +1,122 @@
-<html lang="en" style="font-size: 100px;"><head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0" name="viewport">
-    <title>活动详情</title>
-    <link rel="stylesheet" href="./styles/info.css">
-    <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
-    <script src="./js/common.js"></script>
-    <script type="text/javascript">
-        var new_ticket_id
-        var isShowShadow = false
-        var active_price = 0
-        var isShowSubtractGray = true
-        $(function () {
-            var info = $('.info')
-            var tab_title_details = $('.tab_title_details')
-            var tab_title_comment = $('.tab_title_comment')
-            var tab_detail = $('.tab_detail');
-            var tab_comment = $('.tab_comment'),
-                    heart = $('.heart');
-            var init_activity_price = $('.activity-price').text()
+<!DOCTYPE html>
+<html lang="en" style="font-size: 100px;">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1"/>
+        <title>活动详情</title>
+        <link rel="stylesheet" href="./styles/info.css">
+        <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
+        <script src="./js/common.js"></script>
+        <script type="text/javascript">
+            var new_ticket_id
+            var isShowShadow = false
+            var active_price = 0
+            var isShowSubtractGray = true
+            $(function () {
+                var info = $('.info')
+                var tab_title_details = $('.tab_title_details')
+                var tab_title_comment = $('.tab_title_comment')
+                var tab_detail = $('.tab_detail');
+                var tab_comment = $('.tab_comment'),
+                        heart = $('.heart');
+                var init_activity_price = $('.activity-price').text()
 
-            $('.s_square').hide()
+                $('.s_square').hide()
 
-            tab_title_details.on('click',function(){
-                tab_comment.hide();
-                tab_detail.show();
-                tab_title_details.addClass('tab_style')
-                tab_title_comment.removeClass('tab_style')
-            });
-            tab_title_comment.on('click',function(){
-                tab_detail.hide();
-                tab_comment.show();
-                tab_title_comment.addClass('tab_style')
-                tab_title_details.removeClass('tab_style')
+                tab_title_details.on('click',function(){
+                    tab_comment.hide();
+                    tab_detail.show();
+                    tab_title_details.addClass('tab_style')
+                    tab_title_comment.removeClass('tab_style')
+                });
+                tab_title_comment.on('click',function(){
+                    tab_detail.hide();
+                    tab_comment.show();
+                    tab_title_comment.addClass('tab_style')
+                    tab_title_details.removeClass('tab_style')
+                })
+
+                $('.order_number_add').on('click', function () {
+                    var number = parseInt($('.order_number_n').text())
+                    number++
+                    if (isShowSubtractGray) {
+                        isShowSubtractGray = false
+                        $('.order_number_sub img').attr('src', 'https://media-ssl.kuban.io/static/wechat/images/activity/subtract@3x.png')
+                    }
+                    $('.activity-price').text(parseFloat(parseFloat(active_price) * number).toFixed(2))
+                    $('.order_number_n').text(number)
+                })
+
+                $('.order_number_sub').on('click', function () {
+                    var number = parseInt($('.order_number_n').text())
+                    number--
+                    if (number < 1) {
+                        number = 1
+                    }
+                    if (!isShowSubtractGray && number == 1) {
+                        isShowSubtractGray = true
+                        $('.order_number_sub img').attr('src', 'https://media-dev-ssl.kuban.io/subtract-gray.png')
+                    }
+                    $('.activity-price').text(parseFloat(parseFloat(active_price) * number).toFixed(2))
+                    $('.order_number_n').text(number)
+                })
+
+                $('.s_content_box span').on('click', function () {
+                    var $this = $(this)
+                    var tk_id = $this.attr('data-ticket-id')
+                    var price = $this.attr('data-price')
+                    if (new_ticket_id != tk_id) {
+                        $('.order_number_n').text(1)
+                    }
+                    new_ticket_id = tk_id
+                    $('.activity-price').text(price)
+                    active_price = price
+                    $('.active_header_price').text(active_price)
+                    $('.s_content_box span').removeClass('s_content_active')
+                    $this.addClass('s_content_active')
+                })
+
+                $('.shadow-box').on('click', function () {
+                    isShowShadow = false
+                    $('.order_number_n').text(1)
+                    $('.shadow-box').removeClass('shadow-active')
+                    $('.s_square').hide()
+                    new_ticket_id = 0
+                    active_price = 0
+                    $('.active_header_price').text(init_activity_price)
+                    $('.activity-price').text(init_activity_price)
+                })
             })
 
-            $('.order_number_add').on('click', function () {
-                var number = parseInt($('.order_number_n').text())
-                number++
-                if (isShowSubtractGray) {
-                    isShowSubtractGray = false
-                    $('.order_number_sub img').attr('src', 'https://media-ssl.kuban.io/static/wechat/images/activity/subtract@3x.png')
+            function toOC(type) {
+                var act_id = $('.activities_detail').attr('data-act_id')
+                var ticket_id = new_ticket_id
+                if (type === 'free') {
+                    ticket_id = $('.button1').attr('data-ticket-id')
                 }
-                $('.activity-price').text(parseFloat(parseFloat(active_price) * number).toFixed(2))
-                $('.order_number_n').text(number)
-            })
+                alert(ticket_id)
+                console.log(act_id, ticket_id)
+                callClientHandler('', { act_id: act_id,  ticket_id: ticket_id }, 'activitySignUp')
+            }
 
-            $('.order_number_sub').on('click', function () {
-                var number = parseInt($('.order_number_n').text())
-                number--
-                if (number < 1) {
-                    number = 1
-                }
-                if (!isShowSubtractGray && number == 1) {
+            function toShopping () {
+                if (!isShowShadow) {
+                    isShowShadow = true
+                    $('.shadow-box').addClass('shadow-active')
+                    $('.s_square').show()
+                    new_ticket_id = $('.s_content_active').attr('data-ticket-id')
+                    active_price = $('.s_content_active').attr('data-price')
+                    $('.active_header_price').text(active_price)
+                    $('.activity-price').text(active_price)
                     isShowSubtractGray = true
                     $('.order_number_sub img').attr('src', 'https://media-dev-ssl.kuban.io/subtract-gray.png')
+                    return
                 }
-                $('.activity-price').text(parseFloat(parseFloat(active_price) * number).toFixed(2))
-                $('.order_number_n').text(number)
-            })
 
-            $('.s_content_box span').on('click', function () {
-                var $this = $(this)
-                var tk_id = $this.attr('data-ticket-id')
-                var price = $this.attr('data-price')
-                if (new_ticket_id != tk_id) {
-                    $('.order_number_n').text(1)
-                }
-                new_ticket_id = tk_id
-                $('.activity-price').text(price)
-                active_price = price
-                $('.active_header_price').text(active_price)
-                $('.s_content_box span').removeClass('s_content_active')
-                $this.addClass('s_content_active')
-            })
-
-            $('.shadow-box').on('click', function () {
-                isShowShadow = false
-                $('.order_number_n').text(1)
-                $('.shadow-box').removeClass('shadow-active')
-                $('.s_square').hide()
-                new_ticket_id = 0
-                active_price = 0
-                $('.active_header_price').text(init_activity_price)
-                $('.activity-price').text(init_activity_price)
-            })
-        })
-
-        function toOC(type) {
-            var act_id = $('.activities_detail').attr('data-act_id')
-            var ticket_id = new_ticket_id
-            if (type === 'free') {
-                ticket_id = $('.button1').attr('data-ticket-id')
+                toOC()
             }
-            alert(ticket_id)
-            console.log(act_id, ticket_id)
-            callClientHandler('', { act_id: act_id,  ticket_id: ticket_id }, 'activitySignUp')
-        }
-
-        function toShopping () {
-            if (!isShowShadow) {
-                isShowShadow = true
-                $('.shadow-box').addClass('shadow-active')
-                $('.s_square').show()
-                new_ticket_id = $('.s_content_active').attr('data-ticket-id')
-                active_price = $('.s_content_active').attr('data-price')
-                $('.active_header_price').text(active_price)
-                $('.activity-price').text(active_price)
-                isShowSubtractGray = true
-                $('.order_number_sub img').attr('src', 'https://media-dev-ssl.kuban.io/subtract-gray.png')
-                return
-            }
-
-            toOC()
-        }
-    </script>
-</head>
+        </script>
+    </head>
 <body>
 
 <div class="act-container">
@@ -127,7 +129,8 @@
                 <div class="a_wrapper">
                     <div class="title">
                         <span class="title_content">测试(6个字符)</span>
-                        <span class="price1">免费</span>
+                        <!-- 如果当前免费的话 -->
+                        <!-- <span class="price1 active_header_price">免费</span> -->
                         <span class="price2"><span>￥</span><span class="active_header_price">50-120</span></span>
                     </div>
                     <div class="state">
@@ -143,13 +146,10 @@
                         </div>
                         <div class="activity-status">
                             <span class="status_tag p_bg">正在进行</span>
+                            <!-- 不同的状态 <span class="status_tag s_bg">即将开始</span>
+                            <span class="status_tag e_bg">已结束</span>
+                            <span class="status_tag a_bg">名额已满</span> -->
                         </div>
-                    </div>
-                    <div class="state">
-                        <span class="status_tag p_bg">正在进行</span>
-                        <span class="status_tag s_bg">即将开始</span>
-                        <span class="status_tag e_bg">已结束</span>
-                        <span class="status_tag a_bg">名额已满</span>
                     </div>
                     <div class="act_detail">
                         <div>活动时间：2017年09月17日 7:00 — 18:00</div>
@@ -158,59 +158,59 @@
                         <div class="address"><span>活动地址：三元桥店</span><span><img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img"></span></div>
                         <div class="people_num"><span>报名人数：1</span><span><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></span></div>
                     </div>
-                    <div class="act_tab">
-                        <div class="tab_title">
-                            <span class="tab_title_details tab_style"><img src="https://media-ssl.kuban.io/static/h5/images/hd/pic_pressed@2x.png" alt=""><span>活动详情</span></span>
-                            <span class="tab_title_comment "><img src="https://media-ssl.kuban.io/static/h5/images/hd/comment_pressed@2x.png" alt="">玩家评价</span>
-                        </div>
-                        <div class="tab_detail" >
-                            <div class="description"><ul>
+                </div>
+                <div class="act_tab">
+                    <div class="tab_title">
+                        <span class="tab_title_details tab_style"><img src="https://media-ssl.kuban.io/static/h5/images/hd/pic_pressed@2x.png" alt=""><span>活动详情</span></span>
+                        <span class="tab_title_comment "><img src="https://media-ssl.kuban.io/static/h5/images/hd/comment_pressed@2x.png" alt="">玩家评价</span>
+                    </div>
+                    <div class="tab_detail" >
+                        <div class="description">
+                            <ul>
                                 <li>&nbsp;&nbsp;&nbsp;屈 &nbsp;&nbsp;&nbsp;，晨是傻子</li>
                             </ul>
-                                <blockquote>&nbsp;&nbsp;&nbsp;屈 &nbsp;&nbsp;&nbsp;，晨是傻子</blockquote>
-                                <figure><img src="https://media-dev-ssl.kuban.io/uploads/faq/1be48913-54a9-41b7-9391-5c3d15924cbe.png"></figure>
-                                <figure><img src=""></figure></div>
-                            <div><img src="" alt=""></div>
+                            <blockquote>&nbsp;&nbsp;&nbsp;屈 &nbsp;&nbsp;&nbsp;，晨是傻子</blockquote>
+                            <figure><img src="https://media-dev-ssl.kuban.io/uploads/faq/1be48913-54a9-41b7-9391-5c3d15924cbe.png"></figure>
+                            <figure><img src=""></figure>
                         </div>
-                        <div class="activities_comments tab_comment">
-                            <div class="comment">
-                                <div class="comment_act">
-                                    <div><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></div>
-                                    <div class='word'>12121</div>
-                                </div>
-                                <div class="comment_img">
-                                    <div class="star">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_normal@2x.png" alt="">
-                                    </div>
-
-                                    <div class="date">5月20日  17:00</div>
-                                </div>
+                    </div>
+                    <div class="activities_comments tab_comment">
+                        <div class="comment">
+                            <div class="comment_act">
+                                <div><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></div>
+                                <div class='word'>12121</div>
                             </div>
-
-                            <div class="comment">
-                                <div class="comment_act">
-                                    <div><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></div>
-                                    <div class='word'>12121212222222222222222222222222222222222222222222222222222222222222222222222222222222222</div>
+                            <div class="comment_img">
+                                <div class="star">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_normal@2x.png" alt="">
                                 </div>
-                                <div class="comment_img">
-                                    <div class="star">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_normal@2x.png" alt="">
-                                    </div>
 
-                                    <div class="date">5月20日  17:00</div>
+                                <div class="date">5月20日  17:00</div>
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment_act">
+                                <div><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></div>
+                                <div class='word'>12121212222222222222222222222222222222222222222222222222222222222222222222222222222222222</div>
+                            </div>
+                            <div class="comment_img">
+                                <div class="star">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_pressed@2x.png" alt="">
+                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/star_normal@2x.png" alt="">
                                 </div>
+
+                                <div class="date">5月20日  17:00</div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

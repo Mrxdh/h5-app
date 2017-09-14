@@ -1,0 +1,62 @@
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0;font-weight: normal;font-size: 0.14rem}
+
+html,body{
+  height: 100%;
+  font-size: 0.14rem;
+  font-family: PingFangSC, Microsoft Yahei,SimSun,Helvetica;
+  // 禁止ios和android用户选中文字
+  -webkit-user-select:none; user-select: none;
+}
+
+//去掉webkit的滚动条——display: none;
+//其他参数
+::-webkit-scrollba //滚动条整体部分
+::-webkit-scrollbar-thumb   //滚动条内的小方块
+::-webkit-scrollbar-track   //滚动条轨道
+::-webkit-scrollbar-button  //滚动条轨道两端按钮
+::-webkit-scrollbar-track-piece  //滚动条中间部分，内置轨道
+::-webkit-scrollbar-corner       //边角，两个滚动条交汇处
+::-webkit-resizer            //两个滚动条的交汇处上用于通过拖动调整元素大小的小控件
+
+
+// 改变输入框placeholder的颜色值
+::-webkit-input-placeholder { /* WebKit browsers */
+color: #999; }
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #999; }
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color: #999; }
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+color: #999; }
+input:focus::-webkit-input-placeholder{ color:#999; }
+
+// android上去掉语音输入按钮
+input::-webkit-input-speech-button {display: none}
+
+a{
+  text-decoration: none;
+  color:#000;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.no_active {
+    height: 100%;
+    padding-top: 2rem;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: -0.72rem;
+    div{
+        font-size: 0.16rem;
+        padding: 0.16rem;
+        color: #6e6e6e;
+        opacity:0.8;
+    }
+    img {
+        display: initial;
+        width: 1rem;
+    }
+}

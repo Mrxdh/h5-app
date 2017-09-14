@@ -85,7 +85,7 @@ setupKBWebviewJSBridge(function(bridge) {
 function toOC() {
     jsBridge.callHandler(
         'activitySignUp'
-        , { act_id: $('.activities_detail').attr('data-ticket_id'),  ticket_id: $('.activities_detail').attr('data-act_id') }
+        , {  url: act_id: $('.activities_detail').attr('data-ticket_id'),  ticket_id: $('.activities_detail').attr('data-act_id') }
     );
 }
 
