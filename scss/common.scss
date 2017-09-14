@@ -5,7 +5,17 @@ html,body{
   font-size: 0.14rem;
   font-family: PingFangSC, Microsoft Yahei,SimSun,Helvetica;
   // 禁止ios和android用户选中文字
-  -webkit-user-select:none; user-select: none;
+  -webkit-user-select:none; 
+  user-select: none;
+}
+
+*, .scroller {
+  -webkit-tap-highlight-color: transparent;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
 }
 
 //去掉webkit的滚动条——display: none;
