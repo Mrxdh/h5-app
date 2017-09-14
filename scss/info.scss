@@ -43,9 +43,9 @@
       .title{
         display:flex;
         justify-content: space-between;
-        padding-top:0.18rem;
+        padding-top:0.12rem;
         .title_content{
-          font-size: 0.24rem;
+          font-size: 0.2rem;
           font-weight: bold;
           color: #323232;
           width: 2.2rem;
@@ -54,7 +54,7 @@
       .state{
         display:flex;
         justify-content:space-between;
-        padding-bottom:0.24rem;
+        padding-bottom:0.16rem;
         padding-top:0.12rem;
         border-bottom:1px solid #e1e1e1;
         .activity-status {
@@ -101,7 +101,8 @@
         color: #333333;
         div {
           border-bottom: 1px solid #e1e1e1;
-          padding: 0.2rem 0;
+          padding: 0.16rem 0;
+          font-size: 0.14rem;
         }
         .contact {
           display: flex;
@@ -174,7 +175,7 @@
     }
     .act_tab{
       padding-top:0.24rem;
-      margin-bottom: 0.32rem;
+      margin-bottom: 0.62rem;
       overflow: hidden;
       .tab_comment {
         background-color: #f9f9f9;
