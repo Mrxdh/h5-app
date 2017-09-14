@@ -7,24 +7,6 @@
 	&:last-child {
 		border-bottom: none;
 	}
-	&::after {
-		content: '';
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		background : #e1e1e1;
-		height: 1px;
-		width: 100%;
-	}
-	&:last-child:after {
-		content: '';
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		background : #e1e1e1;
-		height: 0px!important;
-		width: 100%;
-	}
 }
 
 .news_list:active, .news_list:focus{
@@ -81,4 +63,11 @@
 	bottom: 0.16rem;
 }
 
-
+.line_n1 {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #e1e1e1;
+    bottom: 0;
+    left: 0;
+}
