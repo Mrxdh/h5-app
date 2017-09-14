@@ -1,0 +1,37 @@
+@import "common.scss";
+
+.act_payed{
+  margin:0 0.16rem;
+  text-align: center;
+  .p_icon{
+    padding-top:0.4rem;
+    img{
+      width:0.82rem;
+      height:0.82rem;
+      text-align: center;
+    }
+  }
+  .payed{
+    font-size:0.16rem;
+    color:#282b3a;
+    padding-top:0.18rem;
+  }
+  .money{
+    font-size:0.34rem;
+    color:#020202;
+    padding-top:0.4rem;
+  }
+  .owner{
+    font-size:0.16rem;
+    color:#999;
+    padding-top:0.12rem;
+  }
+  .button{
+    font-size:0.16rem;
+    color:#fafafa;
+    margin-top:0.6rem;
+    border-radius: 4px;
+    background-color: #ff5a60;
+    padding:0.14rem 0;
+  }
+}
