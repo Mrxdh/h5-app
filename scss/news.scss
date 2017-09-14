@@ -1,10 +1,15 @@
 @import "common.scss";
 
+body {
+	padding-left: 0.16rem;
+}
+
 .news_list{
-	display: flex;
-	padding: 0.16rem;
-	position: relative;
-	-webkit-touch-callout:none;
+    display: flex;
+    display: -webkit-flex;
+    padding: 0.12rem 0.12rem 0.12rem 0;
+    position: relative;
+    -webkit-touch-callout: none;
 	&:last-child {
 		border-bottom: none;
 	}
