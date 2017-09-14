@@ -4,6 +4,7 @@
 	display: flex;
 	padding: 0.16rem;
 	position: relative;
+	-webkit-touch-callout:none;
 	&:last-child {
 		border-bottom: none;
 	}
@@ -12,6 +13,7 @@
 .news_list:active, .news_list:focus{
 	background: #f5f5f5;
 }
+
 .no_active{
 	height: 100%;
 	padding-top: 2rem;
@@ -36,8 +38,8 @@
 }
 
 .news_img{
-	width: 86px;
-    height: 72px;
+    width: 92px;
+    height: 80px;
     display: inline-block;
 }
 
@@ -58,7 +60,7 @@
 	font-weight:500;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
-	-webkit-line-clamp:3;
+	-webkit-line-clamp:2;
 	overflow:hidden;
 }
 

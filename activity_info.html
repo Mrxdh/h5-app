@@ -86,6 +86,13 @@
                     $('.active_header_price').text(init_activity_price)
                     $('.activity-price').text(init_activity_price)
                 })
+
+                $('.location_address').on('click', function () {
+                    var $this = $(this)
+                    var longitude = $this.attr('data-longitude')
+                    var latitude = $this.attr('data-latitude')
+                    callClientHandler('', { longitude: longitude,  latitude: latitude }, 'gotoClientMap')
+                })
             })
 
             function toOC(type) {
@@ -94,9 +101,7 @@
                 if (type === 'free') {
                     ticket_id = $('.button1').attr('data-ticket-id')
                 }
-                alert(ticket_id)
-                console.log(act_id, ticket_id)
-                callClientHandler('', { act_id: act_id,  ticket_id: ticket_id }, 'activitySignUp')
+                callClientHandler('', { act_id: act_id,  ticket_id: ticket_id, orderToPage: 'payed' }, 'activitySignUp')
             }
 
             function toShopping () {
@@ -155,7 +160,12 @@
                         <div>活动时间：2017年09月17日 7:00 — 18:00</div>
                         <div>活动人数：178</div>
                         <div class="contact"><span>联系人：冯鑫禄</span><span><img src="https://media-ssl.kuban.io/static/h5/images/hd/phone@3x.png" alt="img"></span></div>
-                        <div class="address"><span>活动地址：三元桥店</span><span><img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img"></span></div>
+                        <div class="address">
+                            <span>活动地址：三元桥店</span>
+                            <span class="location_address" data-longitude="116.512313" data-latitude="39.968143">
+                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
+                            </span>
+                        </div>
                         <div class="people_num"><span>报名人数（1）</span><span><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></span></div>
                     </div>
                     <div class="invite">
