@@ -36,13 +36,16 @@
 }
 
 .news_img{
-	width: 1.1rem;
+	width: 86px;
+    height: 72px;
+    display: inline-block;
 }
 
 .news_img > img{
 	display: inline-block;
-	width: 0.8rem;
-	margin: 0 auto;
+    width: inherit;
+    margin: 0 auto;
+    height: inherit;
 }
 
 .news_content{

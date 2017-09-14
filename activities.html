@@ -38,8 +38,9 @@
             });
 
             function toActivity(id, ele) {
-                var url = $(ele).attr('data-redirect-url')
-                callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'activityGoToPage')
+                window.location.href='activity_info.html'
+                // var url = $(ele).attr('data-redirect-url')
+                // callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'activityGoToPage')
             }
         </script>
     </head>
@@ -110,7 +111,7 @@
                         </div>
                         <div class="header">
                             <span class="title">测试(6个字符)</span>
-                            <span class="price_2">￥100-120</span>
+                            <span class="price_1">免费</span>
                         </div>
                         <div class="time">
                             <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
@@ -134,7 +135,7 @@
                         <div class="header">
                             <span class="title">三元桥撸串</span>
 
-                            <span class="price_2">￥80-100</span>
+                            <span class="price_1">免费</span>
 
                         </div>
                         <div class="time">
@@ -186,7 +187,7 @@
                         <div class="header">
                             <span class="title">三元桥撸串</span>
 
-                            <span class="price_2">￥50</span>
+                            <span class="price_1">免费</span>
 
                         </div>
                         <div class="time">

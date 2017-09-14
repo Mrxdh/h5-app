@@ -38,8 +38,9 @@
             });
 
             function toActivity(id, ele) {
-                var url = $(ele).attr('data-redirect-url')
-                callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'activityGoToPage')
+                window.location.href='activity_info.html'
+                // var url = $(ele).attr('data-redirect-url')
+                // callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'activityGoToPage')
             }
         </script>
     </head>
