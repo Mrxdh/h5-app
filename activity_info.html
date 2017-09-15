@@ -12,6 +12,7 @@
             var isShowShadow = false
             var active_price = 0
             var isShowSubtractGray = true
+            document.title = '活动详情'
             $(function () {
                 var info = $('.info')
                 var tab_title_details = $('.tab_title_details')
@@ -94,6 +95,12 @@
                     var address = $this.attr('data-address')
                     callClientHandler('', { longitude: longitude,  latitude: latitude, address: address }, 'gotoClientMap')
                 })
+
+                $('.user_phone').on('click', function () {
+                    var $this = $(this)
+                    var phone = $this.attr('data-phone')
+                    callClientHandler('', { phone: phone }, 'gotoClientPhone')
+                })
             })
 
             function toOC(type) {
@@ -160,7 +167,12 @@
                     <div class="act_detail">
                         <div>活动时间：2017年09月17日 7:00 — 18:00</div>
                         <div>活动人数：178</div>
-                        <div class="contact"><span>联系人：冯鑫禄</span><span><img src="https://media-ssl.kuban.io/static/web/images/phone_n1.png" alt="img"></span></div>
+                        <div class="contact">
+                            <span>联系人：冯鑫禄</span>
+                            <span class="user_phone" data-phone="13512314563">
+                                <img src="https://media-ssl.kuban.io/static/web/images/phone_n1.png" alt="img">
+                            </span>
+                        </div>
                         <div class="address">
                             <span>活动地址：三元桥店</span>
                             <span class="location_address" data-longitude="116.512313" data-latitude="39.968143" data-address="百贸商城">
@@ -315,7 +327,8 @@
             </div>
             <!--如果免费的话给我一个ticket-id  如果有多张门票的情况下默认选择第一张门票-->
             <!--<div class="bt button1" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div>-->
-            <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div>
+            <!-- <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div> -->
+            <div class="bt disable1"><span>已报名</span></div>
         </div>
         <div class="shadow-box">
         </div>

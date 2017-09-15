@@ -4,8 +4,16 @@ body {
   background: #f7f7f7;
 }
 
+.act-container {
+  margin-top: 0.42rem;
+}
+
 .tab_head{
   display:flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
   justify-content: space-around;
   background:#fff;
   font-size: 0.14rem;
