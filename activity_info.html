@@ -91,7 +91,8 @@
                     var $this = $(this)
                     var longitude = $this.attr('data-longitude')
                     var latitude = $this.attr('data-latitude')
-                    callClientHandler('', { longitude: longitude,  latitude: latitude }, 'gotoClientMap')
+                    var address = $this.attr('data-address')
+                    callClientHandler('', { longitude: longitude,  latitude: latitude, address: address }, 'gotoClientMap')
                 })
             })
 
@@ -162,7 +163,7 @@
                         <div class="contact"><span>联系人：冯鑫禄</span><span><img src="https://media-ssl.kuban.io/static/web/images/phone_n1.png" alt="img"></span></div>
                         <div class="address">
                             <span>活动地址：三元桥店</span>
-                            <span class="location_address" data-longitude="116.512313" data-latitude="39.968143">
+                            <span class="location_address" data-longitude="116.512313" data-latitude="39.968143" data-address="百贸商城">
                                 <img src="https://media-ssl.kuban.io/static/web/images/address_n1.png" alt="img">
                             </span>
                         </div>
