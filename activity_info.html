@@ -107,8 +107,9 @@
                 var act_id = $('.activities_detail').attr('data-act_id')
                 var ticket_id = new_ticket_id
                 if (type === 'free') {
-                    ticket_id = $('.button1').attr('data-ticket-id')
+                    ticket_id = $('.button_apply').attr('data-ticket-id')
                 }
+
                 callClientHandler('', { act_id: act_id,  ticket_id: ticket_id, orderToPage: 'payed' }, 'activitySignUp')
             }
 
@@ -130,14 +131,13 @@
             }
         </script>
     </head>
-<body>
+<body class="no-scroll">
 
 <div class="act-container">
     <div class="activities_detail" data-act_id="8">
         <div class="header">
             <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="" class="head_img">
         </div>
-        <div class="act-container">
             <div class="activities_detail">
                 <div class="a_wrapper">
                     <div class="title">
@@ -331,13 +331,14 @@
                 </div>
             </div>
             <!--如果免费的话给我一个ticket-id  如果有多张门票的情况下默认选择第一张门票-->
-            <!--<div class="bt button1" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div>-->
-            <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div>
+            <!-- <div class="bt button1 button_apply" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div> -->
+            <!-- 如果只有一张票的时候 -->
+            <div class="bt button2 button_apply" data-ticket-id="36"><span class="price3"><span>￥</span><span>120</span></span><span onclick="toOC('free')">立即报名</span></div>
+            <!-- <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div> -->
             <!-- <div class="bt disable1"><span>已报名</span></div> -->
         </div>
         <div class="shadow-box">
         </div>
-    </div>
 </div>
 </body>
 </html>
