@@ -110,21 +110,12 @@
           padding: 0.16rem 0;
           font-size: 0.14rem;
         }
-        .contact {
+        .contact, .address {
           display: flex;
           display: -webkit-flex;
           justify-content: space-between;
           img {
-            width: 0.13rem;
-            margin-right: 0.08rem;
-          }
-        }
-        .address {
-          display: flex;
-          display: -webkit-flex;
-          justify-content: space-between;
-          img {
-            width: 0.13rem;
+            width: 0.16rem;
             margin-right: 0.08rem;
           }
         }
@@ -360,6 +351,8 @@
     span {
       display: inline-block;
       vertical-align: middle;
+      height: 0.3rem;
+      line-height: 0.3rem;
     }
   }
   .order_title {
