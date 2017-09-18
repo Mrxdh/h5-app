@@ -8,79 +8,179 @@
 	<script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
 	<script src="js/common.js"></script>
 	<script>
+		document.title = "资讯"
 		function toNews(id, ele) {
-			window.location.href='details.html'
-			// var url = $(ele).attr('data-redirect-url')
-			// callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'newsGoToPage')
+			var url = $(ele).attr('data-redirect-url')
+			callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'newsGoToPage')
 		}
+
+		$(function () {
+			// 页数
+			var page = 0;
+			// 每页展示10个
+			var size = 10;
+
+			// dropload
+			$('.content').dropload({
+					scrollArea : window,
+					domDown : {
+							domClass   : 'dropload-down',
+							domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+							domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+							domNoData  : '<div class="dropload-noData">暂无数据</div>'
+					},
+					loadDownFn : function(me){
+							page++;
+							// 拼接HTML
+							var result = '';
+							$.ajax({
+									type: 'GET',
+									url: 'http://ons.me/tools/dropload/json.php?page='+page+'&size='+size,
+									dataType: 'json',
+									success: function(data){
+											var arrLen = data.length;
+
+											if(arrLen > 0){
+													for(var i=0; i<arrLen; i++){
+															result += '<div class="news_list" onclick="toNews(13, this)">'
+																	+ '<div class="news_img">'
+																		+ '<img src="https://media-dev-ssl.kuban.io/uploads/activities/67d4d93b-a293-4534-aea9-63c243681723.jpeg?imageView2/1/w/92/h/80" alt="">'
+																	+ '</div>'
+																	+ '<div class="news_content">'
+																		+ '<p>震惊！超级无敌大新闻</p>'
+																		+ '<p>大约 3 小时前</p>'
+																		+ '<div class="news_title">'
+																		+ '</div>'
+																	+ '</div>'
+																	+ '<div class="line_n1"></div>'
+																+ '</div>'
+													}
+											// 如果没有数据
+											}else{
+													// 锁定
+													me.lock();
+													// 无数据
+													me.noData();
+											}
+											// 为了测试，延迟1秒加载
+											setTimeout(function(){
+													// 插入数据到页面，放到最后面
+													$('.new_list').append(result);
+													// 每次数据插入，必须重置
+													me.resetload();
+											},1000);
+									},
+									error: function(xhr, type){
+											alert('Ajax error!');
+											// 即使加载出错，也得重置
+											me.resetload();
+									}
+							});
+					},
+					threshold : 50
+			});
+		})
 	</script>
 </head>
 
-<body>
-	<div class="news_list" onclick="toNews(1, this)" data-redirect-url='https://www.baidu.com'>
-		<div class="news_img">
-			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
-		</div>
-		<div class="news_content">
-			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
-			<p>4分钟前</p>
-		</div>
-		<div class="line_n1"></div>
-	</div>
-	<div class="news_list" onclick="toNews(1, this)">
-		<div class="news_img">
-			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
-		</div>
-		<div class="news_content">
-			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
-			<p>50分钟前</p>
-		</div>
-		<div class="line_n1"></div>
-	</div>
-	<div class="news_list" onclick="toNews(1)">
-		<div class="news_img">
-			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
-		</div>
-		<div class="news_content">
-			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
-			<p>昨天</p>
-		</div>
-		<div class="line_n1"></div>
-	</div>
-	<div class="news_list" onclick="toNews(1, 'www.baidu.com')">
-		<div class="news_img">
-			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
-		</div>
-		<div class="news_content">
-			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来联合办公大咖WeWork来中国联合办公大咖WeWork来中国公大咖WeWork来</p>
-			<p>2017.8.30</p>
-		</div>
-		<div class="line_n1"></div>
-	</div>
-	<div class="news_list" onclick="toNews(1, 'www.baidu.com')">
-		<div class="news_img">
-			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
-		</div>
-		<div class="news_content">
-			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
-			<p>2017.9.13</p>
-		</div>
-		<div class="line_n1"></div>
-	</div>
-	<div class="news_list" onclick="toNews(1, 'www.baidu.com')">
-		<div class="news_img">
-			<img src="https://media-ssl.kuban.io/static/wechat/images/activity/active@3x.png" alt="">
-		</div>
-		<div class="news_content">
-			<p>联合办公大咖WeWork来中国联合办公大咖WeWork来中国</p>
-			<p>2017.5.20</p>
-		</div>
-		<div class="line_n1"></div>
-	</div>
-	<div class="no_active">
-		<img src="https://media-ssl.kuban.io/static/wechat/images/activity/news_none@3x.png" alt="">
-		<div>暂无资讯</div>
-	</div>
-
-</body>
+<body class="content">
+	<div class="new_list">
+			<div class="news_list" onclick="toNews(13, this)">
+					<div class="news_img">
+						<img src="https://media-dev-ssl.kuban.io/uploads/activities/67d4d93b-a293-4534-aea9-63c243681723.jpeg?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>震惊！超级无敌大新闻</p>
+					<p>大约 3 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(12, this)">
+					<div class="news_img">
+						<img src="https://media-dev-ssl.kuban.io/uploads/news/43929dc9-900b-4595-8b85-8e1a0e62a071.jpg?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>测试测试ceuiui</p>
+					<p>大约 3 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(16, this)">
+					<div class="news_img">
+						<img src="https://media-dev-ssl.kuban.io/uploads/activities/2059a22c-21f8-4f10-ad4d-41339ce49033.png?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>iPhone X发布：用了十年的Home键消失 现在要刷脸了</p>
+					<p>大约 6 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(2, this)">
+					<div class="news_img">
+						<img src="https://media-dev-ssl.kuban.io/uploads/activities/0d2598e7-f73b-4313-9fb3-e6c1d89929e1.png?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>黄牛称iPhone 8订单火爆 预计炒至2万元起步</p>
+					<p>大约 6 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(14, this)">
+					<div class="news_img">
+						<img src="https://media-dev-ssl.kuban.io/uploads/activities/95c8f78c-9258-421f-a86a-0f0e68127ec5.jpeg?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>震惊！这是资讯标题！</p>
+					<p>大约 7 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(15, this)">
+					<div class="news_img">
+						<img src="https://media-dev-ssl.kuban.io/uploads/activities/95c8f78c-9258-421f-a86a-0f0e68127ec5.jpeg?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>看不了的新闻网</p>
+					<p>大约 23 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(1, this)">
+					<div class="news_img">
+						<img src="https://media-ssl.kuban.io/static/wechat/app/images/img_pic_tu.png?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>爱看不看新闻网</p>
+					<p>大约 23 小时前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+				<div class="news_list" onclick="toNews(11, this)">
+					<div class="news_img">
+						<img src="https://media-ssl.kuban.io/static/wechat/app/images/img_pic_tu.png?imageView2/1/w/92/h/80" alt="">
+					</div>
+					<div class="news_content">
+					<p>真的没脾气！！！</p>
+					<p>一天前</p>
+					<div class="news_title">
+					</div>
+					</div>
+					<div class="line_n1"></div>
+				</div>
+	</div>	
+	</body>
 </html>

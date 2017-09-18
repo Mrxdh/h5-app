@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1"/>
+    <title>支付完成</title>
+    <link rel="stylesheet" href="./styles/payed.css">
+    <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
+    <script src="./js/common.js"></script>
+    <script type="text/javascript">
+        document.title = '支付完成'
+        function toOrders () {
+            callClientHandler('', '', 'toOrders')
+        }
+    </script>
+</head>
+<body>
+    <section class="act_payed">
+        <div class="p_icon"><img src="https://media-ssl.kuban.io/static/wechat/images/native/order_component.png" alt="img"></div>
+        <div class="payed">支付完成</div>
+        <div class="money">200.00</div>
+        <div class="owner"><span>收款方&nbsp;&nbsp;</span><span>无界空间</span></div>
+        <div class="button" onclick="toOrders()" >查看订单</div>
+    </section>
+</body>
+</html>

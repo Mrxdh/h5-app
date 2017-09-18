@@ -12,6 +12,7 @@
             var isShowShadow = false
             var active_price = 0
             var isShowSubtractGray = true
+            document.title = '活动详情'
             $(function () {
                 var info = $('.info')
                 var tab_title_details = $('.tab_title_details')
@@ -86,17 +87,30 @@
                     $('.active_header_price').text(init_activity_price)
                     $('.activity-price').text(init_activity_price)
                 })
+
+                $('.location_address').on('click', function () {
+                    var $this = $(this)
+                    var longitude = $this.attr('data-longitude')
+                    var latitude = $this.attr('data-latitude')
+                    var address = $this.attr('data-address')
+                    callClientHandler('', { longitude: longitude,  latitude: latitude, address: address }, 'gotoClientMap')
+                })
+
+                $('.user_phone').on('click', function () {
+                    var $this = $(this)
+                    var phone = $this.attr('data-phone')
+                    callClientHandler('', { phone: phone }, 'gotoClientPhone')
+                })
             })
 
             function toOC(type) {
                 var act_id = $('.activities_detail').attr('data-act_id')
                 var ticket_id = new_ticket_id
                 if (type === 'free') {
-                    ticket_id = $('.button1').attr('data-ticket-id')
+                    ticket_id = $('.button_apply').attr('data-ticket-id')
                 }
-                alert(ticket_id)
-                console.log(act_id, ticket_id)
-                callClientHandler('', { act_id: act_id,  ticket_id: ticket_id }, 'activitySignUp')
+
+                callClientHandler('', { act_id: act_id,  ticket_id: ticket_id, orderToPage: 'payed' }, 'activitySignUp')
             }
 
             function toShopping () {
@@ -117,21 +131,19 @@
             }
         </script>
     </head>
-<body>
-
+<body class="no-scroll">
 <div class="act-container">
     <div class="activities_detail" data-act_id="8">
         <div class="header">
             <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="" class="head_img">
         </div>
-        <div class="act-container">
             <div class="activities_detail">
                 <div class="a_wrapper">
                     <div class="title">
                         <span class="title_content">测试(6个字符)</span>
                         <!-- 如果当前免费的话 -->
                         <!-- <span class="price1 active_header_price">免费</span> -->
-                        <span class="price2"><span>￥</span><span class="active_header_price">50-120</span></span>
+                        <span class="price2"><span>￥</span><span class="active_header_price">1000-1200</span></span>
                     </div>
                     <div class="state">
                         <div class="state_box">
@@ -154,8 +166,18 @@
                     <div class="act_detail">
                         <div>活动时间：2017年09月17日 7:00 — 18:00</div>
                         <div>活动人数：178</div>
-                        <div class="contact"><span>联系人：冯鑫禄</span><span><img src="https://media-ssl.kuban.io/static/h5/images/hd/phone@3x.png" alt="img"></span></div>
-                        <div class="address"><span>活动地址：三元桥店</span><span><img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img"></span></div>
+                        <div class="contact">
+                            <span>联系人：冯鑫禄</span>
+                            <span class="user_phone" data-phone="13512314563">
+                                <img src="https://media-ssl.kuban.io/static/web/images/phone_n1.png" alt="img">
+                            </span>
+                        </div>
+                        <div class="address">
+                            <span>活动地址：三元桥店</span>
+                            <span class="location_address" data-longitude="116.512313" data-latitude="39.968143" data-address="百贸商城">
+                                <img src="https://media-ssl.kuban.io/static/web/images/address_n1.png" alt="img">
+                            </span>
+                        </div>
                         <div class="people_num"><span>报名人数（1）</span><span><img src="http://wx.qlogo.cn/mmopen/vi_32/1Yu0ibZST6gzcX72teDL4DbrLFq9QCYuCF7Ip9sqBLWRIibuqgzdKtXMfP1F7gibK6m3zA8T16vwEmOhUXj4LgKicQ/0" alt=""></span></div>
                     </div>
                     <div class="invite">
@@ -202,10 +224,10 @@
                             <figure><img src="https://media-dev-ssl.kuban.io/uploads/faq/1be48913-54a9-41b7-9391-5c3d15924cbe.png"></figure>
                             <figure><img src=""></figure>
                         </div>
-                        <!-- <div class="no_content">
+                        <div class="no_content">
                             <img src="https://media-ssl.kuban.io/static/wechat/images/activity/activity_info_none.png" alt="">
                             <div>暂时木有内容呀~</div>
-                        </div> -->
+                        </div>
                         <div class="relative_act">
                             <div class="relative_act_title">相似活动</div>
                             <div class="relative_act_img">
@@ -239,6 +261,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="activities_comments tab_comment">
                         <div class="comment">
                             <div class="comment_act">
@@ -275,6 +298,10 @@
                                 <div class="date">5月20日  17:00</div>
                             </div>
                         </div>
+                        <div class="no_content">
+                            <img src="https://media-ssl.kuban.io/static/wechat/images/activity/activity_info_none.png" alt="">
+                            <div>暂时木有内容呀~</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,13 +330,14 @@
                 </div>
             </div>
             <!--如果免费的话给我一个ticket-id  如果有多张门票的情况下默认选择第一张门票-->
-            <!--<div class="bt button1" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div>-->
-            <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div>
+            <!-- <div class="bt button1 button_apply" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div> -->
+            <!-- 如果只有一张票的时候 -->
+            <div class="bt button2 button_apply" data-ticket-id="36"><span class="price3"><span>￥</span><span>120</span></span><span onclick="toOC('free')">立即报名</span></div>
+            <!-- <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div> -->
+            <!-- <div class="bt disable1"><span>已报名</span></div> -->
         </div>
         <div class="shadow-box">
         </div>
-    </div>
 </div>
-
 </body>
 </html>
