@@ -168,9 +168,12 @@
                         <div>活动人数：178</div>
                         <div class="contact">
                             <span>联系人：冯鑫禄</span>
-                            <span class="user_phone" data-phone="13512314563">
+                            <a class="user_phone" href="tel:13512314563">
                                 <img src="https://media-ssl.kuban.io/static/web/images/phone_n1.png" alt="img">
-                            </span>
+                            </a>
+                            <!-- <span   data-phone="13512314563">
+                                
+                            </span> -->
                         </div>
                         <div class="address">
                             <span>活动地址：三元桥店</span>
@@ -332,7 +335,13 @@
             <!--如果免费的话给我一个ticket-id  如果有多张门票的情况下默认选择第一张门票-->
             <!-- <div class="bt button1 button_apply" onclick="toOC('free')" data-ticket-id="34"><span>免费报名</span></div> -->
             <!-- 如果只有一张票的时候 -->
-            <div class="bt button2 button_apply" data-ticket-id="36"><span class="price3"><span>￥</span><span>120</span></span><span onclick="toOC('free')">立即报名</span></div>
+            <div class="bt button2 button_apply" data-ticket-id="36">
+                <span class="price3">
+                    <span>￥</span>
+                    <span>120</span>
+                </span>
+                <span onclick="toOC('free')">立即报名</span>
+            </div>
             <!-- <div class="bt button2"><span class="price3"><span>￥</span><span class="activity-price">50-120</span></span><span onclick="toShopping()">立即报名</span></div> -->
             <!-- <div class="bt disable1"><span>已报名</span></div> -->
         </div>
