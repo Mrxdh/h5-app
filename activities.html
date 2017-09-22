@@ -20,6 +20,7 @@
                 var dropload
                 var my_page = 0
                 var all_page = 0
+                var initCount = 0
 
                 allActive.on('click',function(){
                     if (current_type == 'all') {
@@ -35,27 +36,30 @@
                     current_type = 'my'
                     changeStyle('all')
                 });
-                init()
+
                 function init () {
-                    let count
+                    var count
                     if (current_type == 'all') {
-                        count = activities_list[0].childElementCount
+                        count = activities_list.children('.activity-list').length
                     }
                     if (current_type == 'my') {
-                        count = activities_my[0].childElementCount
+                        count = activities_my.children('.activity-list').length
                     }
 
                     if (count < 3) {
                         $('.dropload-refresh').text('已全部加载')
                     }
 
-                    if (count == 1) {
+                    if (count == 0) {
                         $('.dropload-refresh').text('')
+                        $('.dropload-down').hide()
                     }
+
+                    return count
                 }
 
                 function changeStyle(type){
-                    if(type == 'my'){
+                    if(type == 'my') {
                         activities_my.hide()
                         activities_list.show()
                         allActive.addClass('click_style')
@@ -66,9 +70,7 @@
                         myActive.addClass('click_style')
                         allActive.removeClass('click_style')
                     }
-                    init()
-                    dropload.noData(false)
-                    dropload.unlock()
+                    initCount = init()
                 }
 
                 // 每页展示10个
@@ -84,6 +86,9 @@
                         domNoData  : '<div class="dropload-noData">已全部加载</div>'
                     },
                     loadDownFn : function(me){
+                        if (initCount == 0) {
+                            return
+                        }
                         var classN1 = current_type == 'my' ? 'activities_my' : 'activities_list'
                         if (current_type == 'my') {
                             my_page++
@@ -141,7 +146,6 @@
                                 },1000);
                             },
                             error: function(xhr, type){
-                                alert('Ajax error!');
                                 // 即使加载出错，也得重置
                                 me.resetload();
                             }
@@ -149,7 +153,9 @@
                     },
                     threshold : 10
                 });
+                initCount = init()
             });
+            
             function toActivity(id, ele) {
                 var url = $(ele).attr('data-redirect-url')
                 callClientHandler(url || ('/'+ id), {}, url ? 'redirectUrl' : 'activityGoToPage')
@@ -169,7 +175,7 @@
                     <img src="https://media-ssl.kuban.io/static/wechat/images/activity/activity_none@3x.png" alt="">
                     <div>暂无活动</div>
                 </div>
-                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">
                     <div class="single">
                         <img src="https://media-ssl.kuban.io/area/1082855/images/148986008896ba0122.jpeg?imageView2/1/w/378/h/224/interlace/1" alt="img" class="cover">
                         <div class="state">
@@ -193,7 +199,7 @@
                     </div>
                 </a>
 
-                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
                     <div class="single">
                         <img src="https://media-ssl.kuban.io/area/1082855/images/148998392896eb6aa5.jpg?imageView2/1/w/378/h/224/interlace/1" alt="img" class="cover">
                         <div class="state">
