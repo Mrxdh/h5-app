@@ -7,6 +7,16 @@
         <meta name="x5-fullscreen" content="true">
         <title>活动</title>
         <link rel="stylesheet" href="./styles/activities.css">
+        <style>
+            .act-list-container{
+                overflow-y: auto;
+                height: 100%;
+            }
+            .act-my-container{
+                overflow-y: auto;
+                height: 100%;
+            }
+        </style>
         <script src="https://media-dev-ssl.kuban.io/jquery.min.js"></script>
         <script src="./js/common.js"></script>
         <script type="text/javascript">
@@ -17,17 +27,20 @@
                 var activities_my = $('.activities_my')
                 var allActive = $(".all_active");
                 var myActive = $(".my_active");
+                var actListContainer = $('.act-list-container')
+                var actMyContainer = $('.act-my-container')
                 var dropload
                 var my_page = 0
                 var all_page = 0
                 var initCount = 0
-
+                actContainerLoad(actListContainer, 'all')
                 allActive.on('click',function(){
                     if (current_type == 'all') {
                         return
                     }
                     current_type = 'all'
                     changeStyle('my')
+                    actContainerLoad(actListContainer, 'all')
                 });
                 myActive.on('click',function(){
                     if (current_type == 'my') {
@@ -35,6 +48,7 @@
                     }
                     current_type = 'my'
                     changeStyle('all')
+                    actContainerLoad(actMyContainer, 'my')
                 });
 
                 function init () {
@@ -54,19 +68,18 @@
                         $('.dropload-refresh').text('')
                         $('.dropload-down').hide()
                     }
-
                     return count
                 }
 
                 function changeStyle(type){
                     if(type == 'my') {
-                        activities_my.hide()
-                        activities_list.show()
+                        actMyContainer.hide()
+                        actListContainer.show()
                         allActive.addClass('click_style')
                         myActive.removeClass('click_style')
                     }else{
-                        activities_list.hide()
-                        activities_my.show()
+                        actMyContainer.show()
+                        actListContainer.hide()
                         myActive.addClass('click_style')
                         allActive.removeClass('click_style')
                     }
@@ -77,83 +90,86 @@
                 var size = 10;
 
                 // dropload
-                dropload = $('.act-container').dropload({
-                    scrollArea : window,
-                    domDown : {
-                        domClass   : 'dropload-down',
-                        domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
-                        domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-                        domNoData  : '<div class="dropload-noData">已全部加载</div>'
-                    },
-                    loadDownFn : function(me){
-                        if (initCount == 0) {
-                            return
-                        }
-                        var classN1 = current_type == 'my' ? 'activities_my' : 'activities_list'
-                        if (current_type == 'my') {
-                            my_page++
-                        } else {
-                            all_page++
-                        }
-
-                        // 拼接HTML
-                        var result = '';
-                        $.ajax({
-                            type: 'GET',
-                            url: 'http://ons.me/tools/dropload/json.php?page='+ (current_type == 'my' ? my_page : all_page) +'&size='+size,
-                            dataType: 'json',
-                            success: function(data){
-                                var arrLen = data.length;
-                                if(arrLen > 0){
-                                    for(var i=0; i<arrLen; i++){
-                                        result += '<a href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">'
-                                                    + '<div class="single">'
-                                                        + '<img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">'
-                                                        + '<div class="state">'
-                                                            + '<span class="status_tag p_bg">正在进行</span>'
-                                                        + '</div>'
-                                                        + '<div class="header">'
-                                                            + '<span class="title">测试(6个字符))</span>'
-                                                            + '<span class="price_1">免费</span>'
-                                                        + '</div>'
-                                                        + '<div class="time">'
-                                                            + '<img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">'
-                                                            + '<span class="d_time">09月12日 — 09月30日</span>'
-                                                        + '</div>'
-                                                        + '<div class="location">'
-                                                            + '<div>'
-                                                            + '<img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">'
-                                                            + '<span>三元桥店</span>'
-                                                            + '</div>'
-                                                            + '<div>剩余名额297</div>'
-                                                        + '</div>'
-                                                    + '</div>'
-                                                + '</a>'
-                                    }
-                                // 如果没有数据
-                                }else{
-                                    // 锁定
-                                    me.lock();
-                                    // 无数据
-                                    me.noData();
-                                }
-                                // 为了测试，延迟1秒加载
-                                setTimeout(function(){
-                                    // 插入数据到页面，放到最后面
-                                    $('.' + classN1).append(result);
-                                    // 每次数据插入，必须重置
-                                    me.resetload();
-                                },1000);
-                            },
-                            error: function(xhr, type){
-                                // 即使加载出错，也得重置
-                                me.resetload();
-                            }
-                        });
-                    },
-                    threshold : 10
-                });
                 initCount = init()
+                function actContainerLoad(actContainer, current_type) {
+                    $("div").remove(".dropload-down");
+                    dropload = actContainer.dropload({
+                        scrollArea : actContainer,
+                        domDown : {
+                            domClass   : 'dropload-down',
+                            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                            domNoData  : '<div class="dropload-noData">已全部加载</div>'
+                        },
+                        loadDownFn : function(me){
+                            if (initCount == 0) {
+                                return
+                            }
+                            var classN1 = current_type == 'my' ? 'activities_my' : 'activities_list'
+                            if (current_type == 'my') {
+                                my_page++
+                            } else {
+                                all_page++
+                            }
+
+                            // 拼接HTML
+                            var result = '';
+                            $.ajax({
+                                type: 'GET',
+                                url: 'http://ons.me/tools/dropload/json.php?page='+ (current_type == 'my' ? my_page : all_page) +'&size='+size,
+                                dataType: 'json',
+                                success: function(data){
+                                    var arrLen = data.length;
+                                    if(arrLen > 0){
+                                        for(var i=0; i<arrLen; i++){
+                                            result += '<a href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">'
+                                                    + '<div class="single">'
+                                                    + '<img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">'
+                                                    + '<div class="state">'
+                                                    + '<span class="status_tag p_bg">正在进行</span>'
+                                                    + '</div>'
+                                                    + '<div class="header">'
+                                                    + '<span class="title">测试(6个字符))</span>'
+                                                    + '<span class="price_1">免费</span>'
+                                                    + '</div>'
+                                                    + '<div class="time">'
+                                                    + '<img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">'
+                                                    + '<span class="d_time">09月12日 — 09月30日</span>'
+                                                    + '</div>'
+                                                    + '<div class="location">'
+                                                    + '<div>'
+                                                    + '<img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">'
+                                                    + '<span>三元桥店</span>'
+                                                    + '</div>'
+                                                    + '<div>剩余名额297</div>'
+                                                    + '</div>'
+                                                    + '</div>'
+                                                    + '</a>'
+                                        }
+                                        // 如果没有数据
+                                    }else{
+                                        // 锁定
+                                        me.lock();
+                                        // 无数据
+                                        me.noData();
+                                    }
+                                    // 为了测试，延迟1秒加载
+                                    setTimeout(function(){
+                                        // 插入数据到页面，放到最后面
+                                        $('.' + classN1).append(result);
+                                        // 每次数据插入，必须重置
+                                        me.resetload();
+                                    },1000);
+                                },
+                                error: function(xhr, type){
+                                    // 即使加载出错，也得重置
+                                    me.resetload();
+                                }
+                            });
+                        },
+                        threshold : 10
+                    });
+                }
             });
             
             function toActivity(id, ele) {
@@ -168,7 +184,7 @@
             <a><span class="my_active">我的活动</span></a>
         </div>
 
-        <div class="act-container">
+        <div class="act-list-container">
             <div class="activities_list">
                 <!--如果没有活动  显示缺省-->
                 <div class="no_active">
@@ -198,8 +214,7 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
                     <div class="single">
                         <img src="https://media-ssl.kuban.io/area/1082855/images/148998392896eb6aa5.jpg?imageView2/1/w/378/h/224/interlace/1" alt="img" class="cover">
                         <div class="state">
@@ -224,7 +239,6 @@
                         </div>
                     </div>
                 </a>
-
                 <a  href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">
                     <div class="single">
                         <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
@@ -297,10 +311,12 @@
                             <div>剩余名额297</div>
                         </div>
                     </div>
-                </a> -->
+                </a>
             </div>
+        </div>
+        <div class="act-my-container">
             <div class="activities_my">
-                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
                     <div class="single">
                         <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
                         <div class="state">
@@ -326,105 +342,105 @@
                     </div>
                 </a>
                 <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
-                        <div class="single">
-                            <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
-                            <div class="state">
-                                <span class="status_tag p_bg">正在进行</span>
-                            </div>
-                            <div class="header">
-                                <span class="title">三元桥撸串</span>
-    
-                                <span class="price_1">免费</span>
-    
-                            </div>
-                            <div class="time">
-                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
-                                <span class="d_time">09月12日 — 09月30日</span>
-                            </div>
-                            <div class="location">
-                                <div>
-                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
-                                    <span>三元桥店</span>
-                                </div>
-                                <div>剩余名额297</div>
-                            </div>
+                    <div class="single">
+                        <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                        <div class="state">
+                            <span class="status_tag p_bg">正在进行</span>
                         </div>
-                    </a>
-                    <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
-                            <div class="single">
-                                <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
-                                <div class="state">
-                                    <span class="status_tag p_bg">正在进行</span>
-                                </div>
-                                <div class="header">
-                                    <span class="title">三元桥撸串</span>
-        
-                                    <span class="price_1">免费</span>
-        
-                                </div>
-                                <div class="time">
-                                    <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
-                                    <span class="d_time">09月12日 — 09月30日</span>
-                                </div>
-                                <div class="location">
-                                    <div>
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
-                                        <span>三元桥店</span>
-                                    </div>
-                                    <div>剩余名额297</div>
-                                </div>
+                        <div class="header">
+                            <span class="title">三元桥撸串</span>
+
+                            <span class="price_1">免费</span>
+
+                        </div>
+                        <div class="time">
+                            <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
+                            <span class="d_time">09月12日 — 09月30日</span>
+                        </div>
+                        <div class="location">
+                            <div>
+                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
+                                <span>三元桥店</span>
                             </div>
-                        </a>
-                        <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
-                                <div class="single">
-                                    <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
-                                    <div class="state">
-                                        <span class="status_tag p_bg">正在进行</span>
-                                    </div>
-                                    <div class="header">
-                                        <span class="title">三元桥撸串</span>
-            
-                                        <span class="price_1">免费</span>
-            
-                                    </div>
-                                    <div class="time">
-                                        <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
-                                        <span class="d_time">09月12日 — 09月30日</span>
-                                    </div>
-                                    <div class="location">
-                                        <div>
-                                            <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
-                                            <span>三元桥店</span>
-                                        </div>
-                                        <div>剩余名额297</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
-                                    <div class="single">
-                                        <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
-                                        <div class="state">
-                                            <span class="status_tag p_bg">正在进行</span>
-                                        </div>
-                                        <div class="header">
-                                            <span class="title">三元桥撸串</span>
-                
-                                            <span class="price_1">免费</span>
-                
-                                        </div>
-                                        <div class="time">
-                                            <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
-                                            <span class="d_time">09月12日 — 09月30日</span>
-                                        </div>
-                                        <div class="location">
-                                            <div>
-                                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
-                                                <span>三元桥店</span>
-                                            </div>
-                                            <div>剩余名额297</div>
-                                        </div>
-                                    </div>
-                                </a> -->
+                            <div>剩余名额297</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                    <div class="single">
+                        <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                        <div class="state">
+                            <span class="status_tag p_bg">正在进行</span>
+                        </div>
+                        <div class="header">
+                            <span class="title">三元桥撸串</span>
+
+                            <span class="price_1">免费</span>
+
+                        </div>
+                        <div class="time">
+                            <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
+                            <span class="d_time">09月12日 — 09月30日</span>
+                        </div>
+                        <div class="location">
+                            <div>
+                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
+                                <span>三元桥店</span>
+                            </div>
+                            <div>剩余名额297</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                    <div class="single">
+                        <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                        <div class="state">
+                            <span class="status_tag p_bg">正在进行</span>
+                        </div>
+                        <div class="header">
+                            <span class="title">三元桥撸串</span>
+
+                            <span class="price_1">免费</span>
+
+                        </div>
+                        <div class="time">
+                            <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
+                            <span class="d_time">09月12日 — 09月30日</span>
+                        </div>
+                        <div class="location">
+                            <div>
+                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
+                                <span>三元桥店</span>
+                            </div>
+                            <div>剩余名额297</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                    <div class="single">
+                        <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
+                        <div class="state">
+                            <span class="status_tag p_bg">正在进行</span>
+                        </div>
+                        <div class="header">
+                            <span class="title">三元桥撸串</span>
+
+                            <span class="price_1">免费</span>
+
+                        </div>
+                        <div class="time">
+                            <img src="https://media-ssl.kuban.io/static/h5/images/hd/time@2x.png" alt="img" class="t_icon">
+                            <span class="d_time">09月12日 — 09月30日</span>
+                        </div>
+                        <div class="location">
+                            <div>
+                                <img src="https://media-ssl.kuban.io/static/h5/images/hd/address@2x.png" alt="img">
+                                <span>三元桥店</span>
+                            </div>
+                            <div>剩余名额297</div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </body>
