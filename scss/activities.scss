@@ -34,6 +34,15 @@ body {
   }
 }
 
+.act-list-container{
+  overflow-y: auto;
+  height: 100%;
+}
+.act-my-container{
+  overflow-y: auto;
+  height: 100%;
+}
+
 .activity-list{
   overflow: hidden;
   display: inherit;
