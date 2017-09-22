@@ -35,25 +35,38 @@
                     current_type = 'my'
                     changeStyle('all')
                 });
+                init()
+                function init () {
+                    let count
+                    if (current_type == 'all') {
+                        count = activities_list[0].childElementCount
+                    }
+                    if (current_type == 'my') {
+                        count = activities_my[0].childElementCount
+                    }
+
+                    if (count < 3) {
+                        $('.dropload-refresh').text('已全部加载')
+                    }
+
+                    if (count == 1) {
+                        $('.dropload-refresh').text('')
+                    }
+                }
 
                 function changeStyle(type){
-                    var count = 0
                     if(type == 'my'){
-                        count = activities_list[0].childElementCount
                         activities_my.hide()
                         activities_list.show()
                         allActive.addClass('click_style')
                         myActive.removeClass('click_style')
                     }else{
-                        count = activities_my[0].childElementCount
                         activities_list.hide()
                         activities_my.show()
                         myActive.addClass('click_style')
                         allActive.removeClass('click_style')
                     }
-                    if (count < 3) {
-                        $('.dropload-refresh').text('已全部加载')
-                    }
+                    init()
                     dropload.noData(false)
                     dropload.unlock()
                 }
@@ -156,7 +169,7 @@
                     <img src="https://media-ssl.kuban.io/static/wechat/images/activity/activity_none@3x.png" alt="">
                     <div>暂无活动</div>
                 </div>
-                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">
+                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)" data-redirect-url="https://www.baidu.com">
                     <div class="single">
                         <img src="https://media-ssl.kuban.io/area/1082855/images/148986008896ba0122.jpeg?imageView2/1/w/378/h/224/interlace/1" alt="img" class="cover">
                         <div class="state">
@@ -278,10 +291,10 @@
                             <div>剩余名额297</div>
                         </div>
                     </div>
-                </a>
+                </a> -->
             </div>
             <div class="activities_my">
-                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
                     <div class="single">
                         <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
                         <div class="state">
@@ -405,7 +418,7 @@
                                             <div>剩余名额297</div>
                                         </div>
                                     </div>
-                                </a>
+                                </a> -->
             </div>
         </div>
     </body>
