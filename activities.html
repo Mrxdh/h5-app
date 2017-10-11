@@ -46,10 +46,6 @@
                         count = activities_my.children('.activity-list').length
                     }
 
-                    if (count < 3) {
-                        $('.dropload-refresh').text('已全部加载')
-                    }
-
                     if (count == 0) {
                         $('.dropload-refresh').text('')
                         $('.dropload-down').hide()
@@ -300,7 +296,7 @@
                 </a> -->
             </div>
             <div class="activities_my">
-                <!-- <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
                     <div class="single">
                         <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
                         <div class="state">
@@ -325,7 +321,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
+                 <!--<a href="javascript:;" class="activity-list" onclick="toActivity(8, this)">
                         <div class="single">
                             <img src="https://media-dev-ssl.kuban.io/uploads/locations/2b86d476-a814-43bb-b37b-171662ddeb98.png" alt="img" class="cover">
                             <div class="state">
