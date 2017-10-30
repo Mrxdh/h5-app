@@ -1,0 +1,86 @@
+@import "common.scss";
+
+body {
+    background: -webkit-linear-gradient(rgba(202,108,255,1), rgba(149,63,241,1)); /* Safari 5.1 - 6.0 */
+    background: linear-gradient(rgba(202,108,255,1), rgba(149,63,241,1)); /* 标准的语法,必须放最后 */
+}
+
+.qrcode {
+    .qrcode-box {
+        padding: 42px;
+        width: 100%;
+        border-radius: 4px;
+        background: #fff;
+    }
+
+    .qrcode-text {
+        text-align: center;
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .qrcode-image {
+        img {
+            width: 100%;
+            width: 100%;
+        }
+    }
+}
+
+.context {
+    margin-top: 30px;
+    padding: 0 50px;
+}
+
+.header-items {
+    height: 40px;
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling : touch;
+    white-space:nowrap;
+    color: #fff;
+    ::-webkit-scrollbar
+    {
+        display: none;
+    }
+    span {
+        display: inline-block;
+        width: 33%;
+        line-height: 40px;
+        height: inherit;
+        font-size: 16px;
+        text-align: center;
+        opacity: 0.6;
+    }
+    .header-item-active {
+        opacity: 1;
+        font-weight: bold;
+    }
+}
+
+.header {
+    position: relative;
+    height: 54px;
+    padding: 7px 0;
+    border-bottom: 1px solid #ddd;
+
+    .item-active-sub {
+        position: absolute;
+        left: 0;
+        border-radius: 100px;
+        bottom: 0px;
+        width: 25%;
+        margin: 0 4%;
+        background:rgba(255,255,255,1);
+        height: 3px;
+    }
+}
+
+.context-hint {
+    text-align: center;
+    font-size: 16px;
+    color:rgba(255,255,255,1);
+    img {
+        height: 144px;
+    }
+}
